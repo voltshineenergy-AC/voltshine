@@ -2,6 +2,11 @@ import Image from "next/image";
 import Button from "@/components/ui/Button";
 import ServiceCard from "@/components/home/ServiceCard";
 
+import FeaturedServices from "@/components/home/FeaturedServices";
+import Reviews from "@/components/home/Reviews";
+import FAQ from "@/components/home/FAQ";
+
+
 export default function Hero() {
   return (
     <section className="relative overflow-hidden bg-[#090909]">
@@ -30,7 +35,7 @@ export default function Hero() {
             VOLTSHINE
           </p>
 
-          <h1 className="text-6xl font-extrabold leading-tight text-white">
+          <h1 className="text-3xl font-extrabold leading-tight text-white md:text-4xl lg:text-5xl xl:text-6xl">
             India's Smart
             <br />
             <span className="text-yellow-400">
@@ -70,16 +75,23 @@ export default function Hero() {
           </div>
 
           {/* Buttons */}
-          <div className="mt-6 flex gap-4">
+    <div className="mt-6 flex flex-col gap-3 sm:flex-row">
 
-            <Button>
-              Book Service
-            </Button>
+        <Button className="w-full sm:w-auto">
+  Book Service
+</Button>
 
-            <Button variant="secondary">
-              WhatsApp
-            </Button>
-
+           <Button
+  variant="secondary"
+  className="w-full sm:w-auto"
+>
+  WhatsApp
+</Button>
+         <button
+  className="w-full rounded-xl bg-red-600 py-4 font-bold text-white transition hover:bg-red-700 sm:w-auto sm:px-8"
+>
+  🚗 Car Won't Start?
+</button>
           </div>
 
         </div>

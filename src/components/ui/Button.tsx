@@ -5,12 +5,14 @@ type ButtonProps = {
   children: ReactNode;
   href?: string;
   variant?: "primary" | "secondary";
+  className?: string;
 };
 
 export default function Button({
   children,
   href = "#",
   variant = "primary",
+  className = "",
 }: ButtonProps) {
   const base =
     "inline-flex items-center justify-center rounded-xl px-6 py-3 font-semibold transition-all duration-300";
@@ -24,7 +26,10 @@ export default function Button({
   };
 
   return (
-    <Link href={href} className={`${base} ${styles[variant]}`}>
+    <Link
+  href={href}
+  className={`${base} ${styles[variant]} ${className}`}
+>
       {children}
     </Link>
   );

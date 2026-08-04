@@ -1,78 +1,127 @@
-import { Star } from "lucide-react";
-
-const reviews = [
-  {
-    name: "Amit Patil",
-    service: "Battery Replacement",
-    review:
-      "Quick doorstep battery replacement. Genuine battery and professional technician. Highly recommended.",
-  },
-  {
-    name: "Sneha Kulkarni",
-    service: "Ceramic Coating",
-    review:
-      "Excellent detailing service. My car looks like new again. Great finishing and timely delivery.",
-  },
-  {
-    name: "Rahul Shinde",
-    service: "Windshield Replacement",
-    review:
-      "OEM windshield installed perfectly. Professional work and transparent pricing.",
-  },
-];
-
 export default function Reviews() {
+  const reviews = [
+    {
+      name: "Amit Patil",
+      location: "Wakad",
+      review:
+        "Battery replaced within 30 minutes. Excellent service and genuine product.",
+    },
+    {
+      name: "Sneha Kulkarni",
+      location: "Baner",
+      review:
+        "Car detailing quality exceeded my expectations. Highly recommended.",
+    },
+    {
+      name: "Rahul Jadhav",
+      location: "Kharadi",
+      review:
+        "Windshield replacement was quick and professional. Great experience.",
+    },
+  ];
+
   return (
-    <section className="bg-black py-24">
+    <section className="bg-black py-20">
       <div className="mx-auto max-w-7xl px-6">
 
-        <div className="text-center">
-          <p className="font-semibold uppercase tracking-[5px] text-yellow-400">
-            Customer Reviews
-          </p>
+        <p className="mb-2 text-center text-yellow-400 tracking-[6px] uppercase">
+          Customer Reviews
+        </p>
 
-          <h2 className="mt-4 text-5xl font-bold text-white">
-            Trusted By Car Owners
-          </h2>
+        <h2 className="text-center text-5xl font-bold text-white">
+          Trusted by Car Owners Across Pune
+        </h2>
 
-          <p className="mt-5 text-gray-400">
-            Real customer experiences from Pune & PCMC.
-          </p>
+        <p className="mx-auto mt-4 max-w-3xl text-center text-gray-400">
+          Real customer experiences that make VoltShine one of Pune's trusted
+          names for Battery Replacement, Windshield and Car Detailing.
+        </p>
+
+        {/* Stats */}
+
+        <div className="mt-12 grid gap-6 md:grid-cols-4">
+
+          <div className="rounded-3xl border border-yellow-500/20 bg-[#161616] p-8 text-center">
+            <h3 className="text-5xl font-bold text-yellow-400">5000+</h3>
+            <p className="mt-2 text-gray-400">
+              Happy Customers
+            </p>
+          </div>
+
+          <div className="rounded-3xl border border-yellow-500/20 bg-[#161616] p-8 text-center">
+            <h3 className="text-5xl font-bold text-yellow-400">12000+</h3>
+            <p className="mt-2 text-gray-400">
+              Batteries Installed
+            </p>
+          </div>
+
+          <div className="rounded-3xl border border-yellow-500/20 bg-[#161616] p-8 text-center">
+            <h3 className="text-5xl font-bold text-yellow-400">4.9★</h3>
+            <p className="mt-2 text-gray-400">
+              Customer Rating
+            </p>
+          </div>
+
+          <div className="rounded-3xl border border-yellow-500/20 bg-[#161616] p-8 text-center">
+            <h3 className="text-5xl font-bold text-yellow-400">30 Min</h3>
+            <p className="mt-2 text-gray-400">
+              Avg. Response
+            </p>
+          </div>
+
         </div>
 
-        <div className="mt-16 grid gap-6 md:grid-cols-3">
+        {/* Reviews */}
 
-          {reviews.map((review) => (
+        <div className="mt-16 grid gap-8 md:grid-cols-3">
+
+          {reviews.map((item, index) => (
+
             <div
-              key={review.name}
-              className="rounded-3xl border border-white/10 bg-[#171717] p-8"
+              key={index}
+              className="rounded-3xl border border-yellow-500/20 bg-[#1a1a1a] p-8"
             >
-              <div className="mb-5 flex gap-1">
-                {[1, 2, 3, 4, 5].map((star) => (
-                  <Star
-                    key={star}
-                    size={18}
-                    fill="#FACC15"
-                    className="text-yellow-400"
-                  />
-                ))}
+
+              <div className="text-yellow-400 text-xl">
+                ⭐⭐⭐⭐⭐
               </div>
 
-              <p className="leading-7 text-gray-300">
-                "{review.review}"
+              <p className="mt-6 text-gray-300 leading-8">
+                "{item.review}"
               </p>
 
-              <h3 className="mt-6 text-xl font-bold text-white">
-                {review.name}
-              </h3>
+              <div className="mt-8">
 
-              <p className="text-yellow-400">
-                {review.service}
-              </p>
+                <h4 className="font-bold text-white">
+                  {item.name}
+                </h4>
+
+                <p className="text-gray-500">
+                  {item.location}
+                </p>
+
+              </div>
+
             </div>
+
           ))}
 
         </div>
+
+        {/* CTA */}
+
+        <div className="mt-16 text-center">
+
+          <a
+            href="https://g.page/r/xxxxxxxx"
+            target="_blank"
+            className="rounded-xl bg-yellow-400 px-10 py-4 font-bold text-black"
+          >
+            View Google Reviews
+          </a>
+
+        </div>
+
       </div>
     </section>
   );

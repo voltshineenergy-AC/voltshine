@@ -37,32 +37,60 @@ export default function BatterySection({
             key={index}
             className="rounded-3xl border border-yellow-400/20 bg-[#1c1c1c] p-6"
           >
-            <div className="flex items-center justify-between">
-              <h4 className="text-2xl font-bold text-yellow-400">
-                {battery.battery_brand}
-              </h4>
+            <div className="flex items-start justify-between">
 
-              <div className="rounded-full bg-yellow-400 px-4 py-2">
-                <span className="font-bold text-black">
-                  {battery.ah} AH
-                </span>
-              </div>
-            </div>
+  <div>
 
-            <div className="mt-4 space-y-2 text-gray-300">
-              <p>✓ Doorstep Service</p>
-              <p>✓ Free Installation</p>
-              <p>✓ Old Battery Exchange</p>
-            </div>
+    <div className="flex items-center gap-2">
+
+      <h4 className="text-2xl font-bold text-yellow-400">
+        {battery.battery_brand}
+      </h4>
+
+      {index === 0 && (
+        <span className="rounded-full bg-green-600 px-2 py-1 text-xs font-bold text-white">
+          Recommended
+        </span>
+      )}
+
+    </div>
+
+  </div>
+
+  <div className="rounded-full bg-yellow-400 px-4 py-2">
+    <span className="font-bold text-black">
+      {battery.ah} AH
+    </span>
+  </div>
+
+</div>
+
+            <div className="mt-4 space-y-2 text-sm text-gray-300">
+
+  <p>🚚 Doorstep Installation</p>
+
+  <p>🛠 Free Installation</p>
+
+  <p>🔄 Old Battery Exchange</p>
+
+  <p>🛡 Manufacturer Warranty</p>
+
+  <p>⚡ Same Day Service</p>
+
+</div>
 
             <div className="mt-6 border-t border-gray-700 pt-4">
               <p className="text-gray-500 line-through">
                 ₹{battery.mrp}
               </p>
 
-              <p className="text-3xl font-bold text-green-400">
-                ₹{battery.dp}
-              </p>
+            <p className="text-4xl font-extrabold text-green-400">
+  ₹{battery.dp}
+</p>
+
+<p className="mt-1 text-xs text-green-500">
+  ✔ Inclusive of Installation
+</p>
 
               <p className="mt-2 text-blue-400">
                 🛡 {battery.warranty}
@@ -70,9 +98,42 @@ export default function BatterySection({
             </div>
 
             <div className="mt-6 flex gap-3">
-              <button className="flex-1 rounded-xl bg-yellow-400 py-3 font-bold text-black">
-                Book Now
-              </button>
+             <button
+  onClick={() =>
+    openWhatsApp(
+`Hello VoltShine 👋
+
+I want to check the availability of this battery.
+
+━━━━━━━━━━━━━━━━━━
+🚗 VEHICLE DETAILS
+
+Make : ${make}
+Model : ${model}
+Year : ${year}
+Fuel : ${fuel}
+
+━━━━━━━━━━━━━━━━━━
+🔋 BATTERY DETAILS
+
+Brand : ${battery.battery_brand}
+Capacity : ${battery.ah} AH
+
+━━━━━━━━━━━━━━━━━━
+
+Please confirm:
+
+✅ Availability
+✅ Final Price
+✅ Installation Time
+
+Thank You.`
+    )
+  }
+  className="flex-1 rounded-xl bg-yellow-400 py-3 font-bold text-black hover:bg-yellow-300 transition"
+>
+  Check Availability
+</button>
 
               <button
   onClick={() =>

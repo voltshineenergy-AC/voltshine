@@ -1,4 +1,9 @@
+"use client";
+
+import { Menu, X } from "lucide-react";
+import { useState } from "react";
 export default function Header() {
+  const [menuOpen, setMenuOpen] = useState(false);
   return (
     <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-black/80 backdrop-blur-md">
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
@@ -15,10 +20,39 @@ export default function Header() {
           <a href="#">Solar</a>
         </nav>
 
-        <button className="rounded-xl bg-yellow-400 px-5 py-2 font-semibold text-black">
-          WhatsApp
-        </button>
+       <div className="lg:hidden">
+  <button onClick={() => setMenuOpen(!menuOpen)}>
+    {menuOpen ? (
+      <X className="h-7 w-7 text-white" />
+    ) : (
+      <Menu className="h-7 w-7 text-white" />
+    )}
+  </button>
+</div>
       </div>
+      {menuOpen && (
+  <div className="border-t border-white/10 bg-[#111] lg:hidden">
+    <nav className="flex flex-col p-6 text-white">
+
+      <a href="#" className="py-3">Home</a>
+
+      <a href="#" className="py-3">Battery</a>
+
+      <a href="#" className="py-3">Windshield</a>
+
+      <a href="#" className="py-3">Detailing</a>
+
+      <a href="#" className="py-3">UPS</a>
+
+      <a href="#" className="py-3">Solar</a>
+
+     <button className="hidden rounded-xl bg-yellow-400 px-5 py-2 font-semibold text-black lg:block">
+  WhatsApp
+</button>
+
+    </nav>
+  </div>
+)}
     </header>
   );
 }

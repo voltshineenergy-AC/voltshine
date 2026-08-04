@@ -14,20 +14,61 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "VoltShine | Battery, Windshield, Detailing, UPS & Solar",
+  metadataBase: new URL("https://voltshine.in"),
+
+  title: {
+    default: "VoltShine | Doorstep Car Battery Replacement & Auto Care in Pune",
+    template: "%s | VoltShine",
+  },
+
   description:
-    "VoltShine - Premium Doorstep Battery Replacement, Jumpstart, Windshield Replacement, Car Detailing, UPS & Inverter and Solar Solutions.",
+    "Doorstep battery replacement, jumpstart, windshield replacement, ceramic coating, PPF, car detailing, UPS, inverter and solar solutions across Pune & PCMC.",
+
   keywords: [
-    "Battery Replacement",
-    "Battery Jumpstart",
-    "Windshield Replacement",
-    "Car Detailing",
+    "Car Battery Replacement Pune",
+    "Battery Replacement Near Me",
+    "Doorstep Battery Service",
+    "Amaron Battery",
+    "Exide Battery",
+    "Livguard Battery",
+    "Jump Start Service",
+    "Windshield Replacement Pune",
+    "Ceramic Coating Pune",
+    "PPF Pune",
+    "Car Detailing Pune",
     "UPS",
     "Inverter",
     "Solar",
     "VoltShine",
-    "Pune",
   ],
+
+  authors: [{ name: "VoltShine" }],
+
+  creator: "VoltShine",
+
+  publisher: "VoltShine",
+
+  robots: {
+    index: true,
+    follow: true,
+  },
+
+  openGraph: {
+    title: "VoltShine",
+    description:
+      "Premium Doorstep Battery Replacement & Auto Care Services in Pune.",
+    url: "https://voltshine.in",
+    siteName: "VoltShine",
+    locale: "en_IN",
+    type: "website",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "VoltShine",
+    description:
+      "Battery Replacement, Windshield, Detailing & Solar Solutions.",
+  },
 };
 
 export default function RootLayout({
@@ -40,7 +81,46 @@ export default function RootLayout({
       lang="en"
       className={`${poppins.variable} ${inter.variable}`}
     >
-      <body>{children}</body>
+      <body>
+  {children}
+
+  <script
+    type="application/ld+json"
+    dangerouslySetInnerHTML={{
+      __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "AutoRepair",
+        name: "VoltShine",
+        url: "https://voltshine.in",
+        telephone: "+91-9270300889",
+        areaServed: [
+          "Pune",
+          "Pimpri Chinchwad",
+          "Wakad",
+          "Baner",
+          "Hinjewadi",
+          "Kharadi",
+          "Hadapsar"
+        ],
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: "Pune",
+          addressRegion: "Maharashtra",
+          addressCountry: "IN"
+        },
+        sameAs: [],
+        serviceType: [
+          "Car Battery Replacement",
+          "Jump Start Service",
+          "Windshield Replacement",
+          "Car Detailing",
+          "Solar Solutions",
+          "UPS & Inverter"
+        ]
+      }),
+    }}
+  />
+</body>
     </html>
   );
 }

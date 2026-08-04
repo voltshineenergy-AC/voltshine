@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import {
   getMakes,
   getModels,
@@ -32,6 +32,7 @@ export default function VehicleFinder() {
 const [showDetailing, setShowDetailing] = useState(false);
 const [windshields, setWindshields] = useState<any[]>([]);
 const [showWindshield, setShowWindshield] = useState(false);
+const resultRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     loadMakes();
@@ -126,6 +127,12 @@ const glass = await getWindshield(
 
 setWindshields(glass);
 setShowWindshield(false);
+setTimeout(() => {
+  resultRef.current?.scrollIntoView({
+    behavior: "smooth",
+    block: "start",
+  });
+}, 300);
 
 // Get Body Type
 const bodyType = await getBodyType(
@@ -241,7 +248,7 @@ console.log("Body Type =", bodyType);
             </button>
 
           </div>
-
+<div ref={resultRef}></div>
 {(result.length > 0 || detailingServices.length > 0) && (
  <ServiceDashboard
   batteryCount={result.length}

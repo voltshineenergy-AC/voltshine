@@ -293,23 +293,15 @@ console.log("Body Type =", bodyType);
 
       {/* VEHICLE IMAGE */}
 
-      <div className="flex h-56 items-center justify-center">
-        {vehicleImages[`${selectedMake}|${selectedModel}`] ? (
-          <img
-            src={vehicleImages[`${selectedMake}|${selectedModel}`]}
-            alt={`${selectedMake} ${selectedModel}`}
-            className="h-full w-full object-contain"
-          />
-        ) : (
-          <div className="text-center text-gray-500">
-            <div className="text-5xl">🚗</div>
+      <div className="flex h-64 items-center justify-center">
 
-            <p className="mt-2 text-sm">
-              Vehicle image coming soon
-            </p>
-          </div>
-        )}
-      </div>
+  <img
+    src="/vehicles/maruti-suzuki-swift.webp.png"
+    alt="Maruti Suzuki Swift"
+    className="h-full w-full object-contain"
+  />
+
+</div>
 
     </div>
   </div>

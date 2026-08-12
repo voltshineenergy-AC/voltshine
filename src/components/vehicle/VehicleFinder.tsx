@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
+import { useRouter } from "next/navigation";
 import {
   getMakes,
   getModels,
@@ -15,8 +16,13 @@ import DetailingSection from "./DetailingSection";
 import { getDetailingServices } from "@/lib/detailing";
 import { getWindshield } from "@/lib/windshield";
 import WindshieldSection from "./WindshieldSection";
+const vehicleImages: Record<string, string> = {
+  "Maruti Suzuki|Swift": "/vehicles/maruti-suzuki-swift.webp.png",
+};
+
 
 export default function VehicleFinder() {
+  const router = useRouter();
   const [selectedMake, setSelectedMake] = useState("");
   const [selectedModel, setSelectedModel] = useState("");
   const [selectedYear, setSelectedYear] = useState("");
@@ -106,6 +112,23 @@ const resultRef = useRef<HTMLDivElement>(null);
     alert("Please select all vehicle details.");
     return;
   }
+    const makeSlug = selectedMake
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, "-");
+
+  const modelSlug = selectedModel
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, "-");
+
+  router.push(
+    `/battery/${makeSlug}/${modelSlug}?year=${selectedYear}&fuel=${encodeURIComponent(
+      selectedFuel
+    )}`
+  );
+
+  return;
 
   try {
     const battery = await getBattery(
@@ -248,6 +271,49 @@ console.log("Body Type =", bodyType);
             </button>
 
           </div>
+          {selectedMake && selectedModel && (
+  <div className="mt-8 overflow-hidden rounded-3xl border border-yellow-400/20 bg-[#151515]">
+    <div className="grid items-center gap-6 p-6 md:grid-cols-2">
+
+      {/* VEHICLE DETAILS */}
+
+      <div>
+        <p className="text-sm font-semibold uppercase tracking-[4px] text-yellow-400">
+          SELECTED VEHICLE
+        </p>
+
+        <h3 className="mt-3 text-3xl font-bold text-white">
+          {selectedMake} {selectedModel}
+        </h3>
+
+        <p className="mt-3 text-gray-400">
+          Your selected vehicle
+        </p>
+      </div>
+
+      {/* VEHICLE IMAGE */}
+
+      <div className="flex h-56 items-center justify-center">
+        {vehicleImages[`${selectedMake}|${selectedModel}`] ? (
+          <img
+            src={vehicleImages[`${selectedMake}|${selectedModel}`]}
+            alt={`${selectedMake} ${selectedModel}`}
+            className="h-full w-full object-contain"
+          />
+        ) : (
+          <div className="text-center text-gray-500">
+            <div className="text-5xl">🚗</div>
+
+            <p className="mt-2 text-sm">
+              Vehicle image coming soon
+            </p>
+          </div>
+        )}
+      </div>
+
+    </div>
+  </div>
+)}
 <div ref={resultRef}></div>
 {(result.length > 0 || detailingServices.length > 0) && (
  <ServiceDashboard
@@ -264,14 +330,14 @@ console.log("Body Type =", bodyType);
   }}
 />
 )}
-{showBattery && (
-<BatterySection
-  batteries={result}
-  make={selectedMake}
-  model={selectedModel}
-  year={selectedYear}
-  fuel={selectedFuel}
-/>
+{result.length > 0 && (
+  <BatterySection
+    batteries={result}
+    make={selectedMake}
+    model={selectedModel}
+    year={selectedYear}
+    fuel={selectedFuel}
+  />
 )}
 {showDetailing && (
   <DetailingSection services={detailingServices} />

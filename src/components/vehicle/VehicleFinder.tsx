@@ -183,7 +183,10 @@ console.log("Body Type =", bodyType);
 }
 
   return (
-        <section className="relative -mt-40 z-20 pb-24">
+        <section
+           id="vehicle-finder"
+           className="relative -mt-40 z-20 pb-24"
+>
       <div className="mx-auto max-w-6xl px-6">
 
         <div className="mb-8 text-center">

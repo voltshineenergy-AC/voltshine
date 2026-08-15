@@ -125,14 +125,12 @@ Thank You.`
   </a>
 
   {/* CAR WON'T START */}
-  <a
-    href={`https://wa.me/${whatsappNumber}?text=${jumpstartMessage}`}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="relative z-[9999] block w-full cursor-pointer rounded-xl bg-red-600 px-8 py-4 text-center font-bold text-white pointer-events-auto hover:bg-red-500 sm:w-auto"
-  >
-    🚗 Car Won't Start?
-  </a>
+<a
+  href={`tel:+${whatsappNumber}`}
+  className="relative z-[9999] block w-full cursor-pointer rounded-xl bg-red-600 px-8 py-4 text-center font-bold text-white pointer-events-auto hover:bg-red-500 sm:w-auto"
+>
+  🚗 Car Won't Start?
+</a>
 
 </div>
 

@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
-import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import {
   getMakes,
   getModels,
@@ -10,19 +9,16 @@ import {
   getBattery,
   getBodyType,
 } from "@/lib/vehicle";
+
 import ServiceDashboard from "./ServiceDashboard";
 import BatterySection from "./BatterySection";
 import DetailingSection from "./DetailingSection";
+import WindshieldSection from "./WindshieldSection";
+
 import { getDetailingServices } from "@/lib/detailing";
 import { getWindshield } from "@/lib/windshield";
-import WindshieldSection from "./WindshieldSection";
-const vehicleImages: Record<string, string> = {
-  "Maruti Suzuki|Swift": "/vehicles/maruti-suzuki-swift.webp.png",
-};
-
 
 export default function VehicleFinder() {
-  const router = useRouter();
   const [selectedMake, setSelectedMake] = useState("");
   const [selectedModel, setSelectedModel] = useState("");
   const [selectedYear, setSelectedYear] = useState("");
@@ -32,13 +28,14 @@ export default function VehicleFinder() {
   const [models, setModels] = useState<string[]>([]);
   const [years, setYears] = useState<number[]>([]);
   const [fuels, setFuels] = useState<string[]>([]);
+
   const [result, setResult] = useState<any[]>([]);
-  const [showBattery, setShowBattery] = useState(false);
+  const [windshields, setWindshields] = useState<any[]>([]);
   const [detailingServices, setDetailingServices] = useState<any[]>([]);
-const [showDetailing, setShowDetailing] = useState(false);
-const [windshields, setWindshields] = useState<any[]>([]);
-const [showWindshield, setShowWindshield] = useState(false);
-const resultRef = useRef<HTMLDivElement>(null);
+
+  const [showBattery, setShowBattery] = useState(false);
+  const [showDetailing, setShowDetailing] = useState(false);
+  const [showWindshield, setShowWindshield] = useState(false);
 
   useEffect(() => {
     loadMakes();
@@ -64,12 +61,25 @@ const resultRef = useRef<HTMLDivElement>(null);
     setYears([]);
     setFuels([]);
 
+    setResult([]);
+    setWindshields([]);
+    setDetailingServices([]);
+
+    setShowBattery(false);
+    setShowDetailing(false);
+    setShowWindshield(false);
+
     if (!make) return;
 
-    const data = await getModels(make);
-    setModels(data);
+    try {
+      const data = await getModels(make);
+      setModels(data);
+    } catch (error) {
+      console.error("Error loading models:", error);
+    }
   }
-    async function handleModel(model: string) {
+
+  async function handleModel(model: string) {
     setSelectedModel(model);
 
     setSelectedYear("");
@@ -78,87 +88,91 @@ const resultRef = useRef<HTMLDivElement>(null);
     setYears([]);
     setFuels([]);
 
+    setResult([]);
+    setWindshields([]);
+    setDetailingServices([]);
+
+    setShowBattery(false);
+    setShowDetailing(false);
+    setShowWindshield(false);
+
     if (!model) return;
 
-    const data = await getYears(selectedMake, model);
-    setYears(data);
+    try {
+      const data = await getYears(selectedMake, model);
+      setYears(data);
+    } catch (error) {
+      console.error("Error loading years:", error);
+    }
   }
 
   async function handleYear(year: string) {
     setSelectedYear(year);
-
     setSelectedFuel("");
 
     setFuels([]);
 
+    setResult([]);
+    setWindshields([]);
+    setDetailingServices([]);
+
+    setShowBattery(false);
+    setShowDetailing(false);
+    setShowWindshield(false);
+
     if (!year) return;
 
-    const data = await getFuels(
-      selectedMake,
-      selectedModel,
-      Number(year)
-    );
+    try {
+      const data = await getFuels(
+        selectedMake,
+        selectedModel,
+        Number(year)
+      );
 
-    setFuels(data);
+      setFuels(data);
+    } catch (error) {
+      console.error("Error loading fuels:", error);
+    }
   }
 
   async function handleSearch() {
-  if (
-    !selectedMake ||
-    !selectedModel ||
-    !selectedYear ||
-    !selectedFuel
-  ) {
-    alert("Please select all vehicle details.");
-    return;
-  }
-    const makeSlug = selectedMake
-    .toLowerCase()
-    .trim()
-    .replace(/\s+/g, "-");
+    if (
+      !selectedMake ||
+      !selectedModel ||
+      !selectedYear ||
+      !selectedFuel
+    ) {
+      alert("Please select all vehicle details.");
+      return;
+    }
 
-  const modelSlug = selectedModel
-    .toLowerCase()
-    .trim()
-    .replace(/\s+/g, "-");
+    // Hide all service sections before new search
+    setShowBattery(false);
+    setShowDetailing(false);
+    setShowWindshield(false);
 
-  router.push(
-    `/battery/${makeSlug}/${modelSlug}?year=${selectedYear}&fuel=${encodeURIComponent(
-      selectedFuel
-    )}`
-  );
+    try {
+      // Get battery options
+      const battery = await getBattery(
+        selectedMake,
+        selectedModel,
+        Number(selectedYear),
+        selectedFuel
+      );
 
-  return;
+      setResult(battery);
 
-  try {
-    const battery = await getBattery(
-      selectedMake,
-      selectedModel,
-      Number(selectedYear),
-      
-      selectedFuel
-    );
-  setResult(battery);
-setShowBattery(false);
-setShowDetailing(false);
+      // Get windshield options
+      const glass = await getWindshield(
+        selectedMake,
+        selectedModel,
+        Number(selectedYear)
+      );
 
-const glass = await getWindshield(
-  selectedMake,
-  selectedModel,
-  Number(selectedYear)
-);
+      setWindshields(glass);
 
-setWindshields(glass);
-setShowWindshield(false);
-setTimeout(() => {
-  resultRef.current?.scrollIntoView({
-    behavior: "smooth",
-    block: "start",
-  });
-}, 300);
-
-// Get Body Type
-const bodyType = await getBodyType(
+      // Get detailing services
+    const bodyType = await getBodyType(
   selectedMake,
   selectedModel,
   Number(selectedYear),
@@ -166,35 +180,36 @@ const bodyType = await getBodyType(
 );
 
 if (bodyType) {
-  const services = await getDetailingServices(bodyType);
-  console.log("Services =", services);
-  setDetailingServices(services);
-} else {
-  setDetailingServices([]);
+  const detailing = await getDetailingServices(bodyType);
+  setDetailingServices(detailing);
 }
 
-console.log("Battery =", battery);
-console.log("Body Type =", bodyType);
+setShowDetailing(false);
 
-  } catch (error) {
-    alert("Battery not found.");
-    console.error(error);
+const detailing = await getDetailingServices(bodyType);
+
+setDetailingServices(detailing);
+setShowDetailing(false);
+
+    } catch (error) {
+      console.error("Search failed:", error);
+    }
   }
-}
 
   return (
-        <section
-           id="vehicle-finder"
-           className="relative -mt-40 z-20 pb-24"
->
+    <section
+      id="vehicle-finder"
+      className="relative z-20 -mt-40 pb-24"
+    >
       <div className="mx-auto max-w-6xl px-6">
 
+        {/* HEADER */}
         <div className="mb-8 text-center">
           <p className="text-sm font-semibold uppercase tracking-[6px] text-yellow-400">
             VEHICLE FINDER
           </p>
 
-          <h2 className="mt-4 text-5xl font-bold text-white">
+          <h2 className="mt-4 text-4xl font-bold text-white md:text-5xl">
             Find Your Perfect Solution
           </h2>
 
@@ -204,10 +219,12 @@ console.log("Body Type =", bodyType);
           </p>
         </div>
 
-        <div className="rounded-[32px] border border-white/20 bg-white/10 backdrop-blur-3xl shadow-[0_25px_80px_rgba(0,0,0,0.65)] p-10">
+        {/* FINDER BOX */}
+        <div className="rounded-[32px] border border-white/20 bg-white/10 p-6 shadow-[0_25px_80px_rgba(0,0,0,0.65)] backdrop-blur-3xl md:p-10">
 
           <div className="grid gap-4 lg:grid-cols-5">
 
+            {/* MAKE */}
             <select
               value={selectedMake}
               onChange={(e) => handleMake(e.target.value)}
@@ -222,6 +239,7 @@ console.log("Body Type =", bodyType);
               ))}
             </select>
 
+            {/* MODEL */}
             <select
               value={selectedModel}
               onChange={(e) => handleModel(e.target.value)}
@@ -237,6 +255,7 @@ console.log("Body Type =", bodyType);
               ))}
             </select>
 
+            {/* YEAR */}
             <select
               value={selectedYear}
               onChange={(e) => handleYear(e.target.value)}
@@ -251,7 +270,9 @@ console.log("Body Type =", bodyType);
                 </option>
               ))}
             </select>
-                        <select
+
+            {/* FUEL */}
+            <select
               value={selectedFuel}
               onChange={(e) => setSelectedFuel(e.target.value)}
               disabled={!selectedYear}
@@ -266,80 +287,112 @@ console.log("Body Type =", bodyType);
               ))}
             </select>
 
+            {/* SEARCH */}
             <button
               onClick={handleSearch}
-              className="h-14 rounded-2xl bg-yellow-400 font-bold text-black hover:bg-yellow-300"
+              className="h-14 rounded-2xl bg-yellow-400 font-bold text-black transition hover:bg-yellow-300"
             >
               Find My Solution
             </button>
 
           </div>
+
+          {/* SELECTED VEHICLE */}
           {selectedMake && selectedModel && (
-  <div className="mt-8 overflow-hidden rounded-3xl border border-yellow-400/20 bg-[#151515]">
-    <div className="grid items-center gap-6 p-6 md:grid-cols-2">
+            <div className="mt-8 overflow-hidden rounded-3xl border border-yellow-400/20 bg-[#151515]">
+              <div className="grid items-center gap-6 p-6 md:grid-cols-2">
 
-      {/* VEHICLE DETAILS */}
+                <div>
+                  <p className="text-sm font-semibold uppercase tracking-[4px] text-yellow-400">
+                    SELECTED VEHICLE
+                  </p>
 
-      <div>
-        <p className="text-sm font-semibold uppercase tracking-[4px] text-yellow-400">
-          SELECTED VEHICLE
-        </p>
+                  <h3 className="mt-3 text-3xl font-bold text-white">
+                    {selectedMake} {selectedModel}
+                  </h3>
 
-        <h3 className="mt-3 text-3xl font-bold text-white">
-          {selectedMake} {selectedModel}
-        </h3>
+                  <p className="mt-3 text-gray-400">
+                    {selectedYear && selectedFuel
+                      ? `${selectedYear} • ${selectedFuel}`
+                      : "Your selected vehicle"}
+                  </p>
+                </div>
 
-        <p className="mt-3 text-gray-400">
-          Your selected vehicle
-        </p>
-      </div>
+                <div className="flex h-56 items-center justify-center">
+                  <img
+                    src="/vehicles/maruti-suzuki-swift.webp.png"
+                    alt={`${selectedMake} ${selectedModel}`}
+                    className="h-full w-full object-contain"
+                  />
+                </div>
 
-      {/* VEHICLE IMAGE */}
+              </div>
+            </div>
+          )}
 
-      <div className="flex h-64 items-center justify-center">
+          {/* SERVICE DASHBOARD */}
+          {(result.length > 0 ||
+            windshields.length > 0 ||
+            detailingServices.length > 0) && (
 
-  <img
-    src="/vehicles/maruti-suzuki-swift.webp.png"
-    alt="Maruti Suzuki Swift"
-    className="h-full w-full object-contain"
-  />
+            <ServiceDashboard
+              batteryCount={result.length}
+              windshieldCount={windshields.length}
 
-</div>
+              onBatteryClick={() => {
+                setShowBattery(true);
+                setShowDetailing(false);
+                setShowWindshield(false);
+              }}
 
-    </div>
-  </div>
-)}
-<div ref={resultRef}></div>
-{(result.length > 0 || detailingServices.length > 0) && (
- <ServiceDashboard
-  batteryCount={result.length}
-  windshieldCount={windshields.length}
-  onBatteryClick={() => setShowBattery(!showBattery)}
-  onDetailingClick={() => {
-    console.log("Detailing Button Clicked");
-    setShowDetailing(true);
-  }}
-  onWindshieldClick={() => {
-    console.log("Windshield Button Clicked");
-    setShowWindshield(true);
-  }}
-/>
-)}
-{result.length > 0 && (
-  <BatterySection
-    batteries={result}
-    make={selectedMake}
-    model={selectedModel}
-    year={selectedYear}
-    fuel={selectedFuel}
-  />
-)}
-{showDetailing && (
-  <DetailingSection services={detailingServices} />
-)}
-{showWindshield && (
-  <WindshieldSection windshields={windshields} />
-)}
+              onDetailingClick={() => {
+                setShowBattery(false);
+                setShowDetailing(true);
+                setShowWindshield(false);
+              }}
+
+              onWindshieldClick={() => {
+                setShowBattery(false);
+                setShowDetailing(false);
+                setShowWindshield(true);
+              }}
+            />
+          )}
+
+          {/* BATTERY */}
+          {showBattery && result.length > 0 && (
+            <div
+              id="all-batteries"
+              className="mt-8 scroll-mt-24"
+            >
+              <BatterySection
+                batteries={result}
+                make={selectedMake}
+                model={selectedModel}
+                year={selectedYear}
+                fuel={selectedFuel}
+              />
+            </div>
+          )}
+
+          {/* DETAILING */}
+          {showDetailing && detailingServices.length > 0 && (
+            <div className="mt-8 scroll-mt-24">
+              <DetailingSection
+                services={detailingServices}
+              />
+            </div>
+          )}
+
+          {/* WINDSHIELD */}
+          {showWindshield && windshields.length > 0 && (
+            <div className="mt-8 scroll-mt-24">
+              <WindshieldSection
+                windshields={windshields}
+              />
+            </div>
+          )}
+
         </div>
       </div>
     </section>

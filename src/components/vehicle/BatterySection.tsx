@@ -37,7 +37,7 @@ export default function BatterySection({
     return 0;
   });
   return (
-    <div>
+   <div id="all-batteries">
       <h3 className="mb-6 text-3xl font-bold text-yellow-400">
         Compatible Batteries
       </h3>

@@ -48,10 +48,10 @@ Thank You.`
     <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black via-black/80 to-black/20"></div>
 
       {/* Content */}
-      <div className="relative z-10 mx-auto flex min-h-[85vh] max-w-7xl items-center px-6">
+       <div className="relative z-10 mx-auto flex min-h-[85vh] max-w-7xl items-center pl-25 pr-2 sm:px-6">
 
         {/* LEFT CONTENT */}
-        <div className="w-full lg:w-1/2">
+         <div className="relative left-3 w-full lg:left-0 lg:w-1/2">
 
           {/* Brand Label */}
           <p className="mb-4 text-sm font-semibold uppercase tracking-[8px] text-yellow-400">
@@ -59,7 +59,7 @@ Thank You.`
           </p>
 
           {/* Heading */}
-          <h1 className="text-3xl font-extrabold leading-tight text-white md:text-4xl lg:text-5xl xl:text-6xl">
+           <h1 className="text-[29px] font-extrabold leading-tight text-white sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
             India's Smart
             <br />
 
@@ -73,7 +73,7 @@ Thank You.`
           </h1>
 
           {/* Service Cards */}
-          <div className="mt-6 grid grid-cols-2 gap-4">
+           <div className="mt-12 grid grid-cols-2 gap-4 gap-x-6">
 
             <ServiceCard
               icon="🔋"
@@ -101,8 +101,11 @@ Thank You.`
 
           </div>
 
-{/* ACTION BUTTONS */}
-<div className="relative z-[9999] mt-6 flex flex-col gap-3 sm:flex-row pointer-events-auto">
+  {/* ACTION BUTTONS */}
+<div
+  className="relative z-[9999] flex flex-col gap-3 sm:flex-row pointer-events-auto"
+  style={{ marginTop: "32px" }}
+>
 
   {/* BOOK SERVICE */}
   <a

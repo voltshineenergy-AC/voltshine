@@ -208,7 +208,7 @@ async function handleSearch() {
   id="vehicle-finder"
   className="relative z-20 -mt-40 pb-24"
 >
-  <div className="mx-auto max-w-6xl px-6 sm:px-6">
+  <div className="mx-auto max-w-6xl px-6 -translate-x-2">
   </div>
 
 

@@ -34,12 +34,21 @@ export default function ServiceDashboard({
             {batteryCount} Compatible Batteries Available
           </p>
 
-         <button
-  onClick={onBatteryClick}
-  className="rounded-xl bg-yellow-400 px-6 py-3 font-bold text-black"
+   <button
+  onClick={() => {
+    onBatteryClick();
+
+    setTimeout(() => {
+      document.getElementById("all-batteries")?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }, 200);
+  }}
+  className="mt-6 w-full rounded-xl bg-yellow-400 py-3 font-bold text-black"
 >
   Explore Batteries
-</button>
+</button>   
         </div>
 
      {/* Detailing */}

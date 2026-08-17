@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import {
   getMakes,
   getModels,
@@ -19,6 +19,7 @@ import { getDetailingServices } from "@/lib/detailing";
 import { getWindshield } from "@/lib/windshield";
 
 export default function VehicleFinder() {
+   const resultRef = useRef<HTMLDivElement>(null);
   const [selectedMake, setSelectedMake] = useState("");
   const [selectedModel, setSelectedModel] = useState("");
   const [selectedYear, setSelectedYear] = useState("");
@@ -36,6 +37,11 @@ export default function VehicleFinder() {
   const [showBattery, setShowBattery] = useState(false);
   const [showDetailing, setShowDetailing] = useState(false);
   const [showWindshield, setShowWindshield] = useState(false);
+
+  const dashboardRef = useRef<HTMLDivElement>(null);
+  const batteryRef = useRef<HTMLDivElement>(null);
+  const detailingRef = useRef<HTMLDivElement>(null);
+  const windshieldRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     loadMakes();
@@ -79,128 +85,133 @@ export default function VehicleFinder() {
     }
   }
 
-  async function handleModel(model: string) {
-    setSelectedModel(model);
+   async function handleModel(model: string) {
+  setSelectedModel(model);
 
-    setSelectedYear("");
-    setSelectedFuel("");
+  setSelectedYear("");
+  setSelectedFuel("");
 
-    setYears([]);
-    setFuels([]);
+  setYears([]);
+  setFuels([]);
 
-    setResult([]);
-    setWindshields([]);
-    setDetailingServices([]);
+  setResult([]);
+  setWindshields([]);
+  setDetailingServices([]);
 
-    setShowBattery(false);
-    setShowDetailing(false);
-    setShowWindshield(false);
+  setShowBattery(false);
+  setShowDetailing(false);
+  setShowWindshield(false);
 
-    if (!model) return;
+  if (!model) return;
 
-    try {
-      const data = await getYears(selectedMake, model);
-      setYears(data);
-    } catch (error) {
-      console.error("Error loading years:", error);
-    }
+  try {
+    const data = await getYears(selectedMake, model);
+    setYears(data);
+  } catch (error) {
+    console.error("Error loading years:", error);
   }
-
-  async function handleYear(year: string) {
-    setSelectedYear(year);
-    setSelectedFuel("");
-
-    setFuels([]);
-
-    setResult([]);
-    setWindshields([]);
-    setDetailingServices([]);
-
-    setShowBattery(false);
-    setShowDetailing(false);
-    setShowWindshield(false);
-
-    if (!year) return;
-
-    try {
-      const data = await getFuels(
-        selectedMake,
-        selectedModel,
-        Number(year)
-      );
-
-      setFuels(data);
-    } catch (error) {
-      console.error("Error loading fuels:", error);
-    }
-  }
-
-  async function handleSearch() {
-    if (
-      !selectedMake ||
-      !selectedModel ||
-      !selectedYear ||
-      !selectedFuel
-    ) {
-      alert("Please select all vehicle details.");
-      return;
-    }
-
-    // Hide all service sections before new search
-    setShowBattery(false);
-    setShowDetailing(false);
-    setShowWindshield(false);
-
-    try {
-      // Get battery options
-      const battery = await getBattery(
-        selectedMake,
-        selectedModel,
-        Number(selectedYear),
-        selectedFuel
-      );
-
-      setResult(battery);
-
-      // Get windshield options
-      const glass = await getWindshield(
-        selectedMake,
-        selectedModel,
-        Number(selectedYear)
-      );
-
-      setWindshields(glass);
-
-      // Get detailing services
-    const bodyType = await getBodyType(
-  selectedMake,
-  selectedModel,
-  Number(selectedYear),
-  selectedFuel
-);
-
-if (bodyType) {
-  const detailing = await getDetailingServices(bodyType);
-  setDetailingServices(detailing);
 }
 
-setShowDetailing(false);
 
-const detailing = await getDetailingServices(bodyType);
+async function handleYear(year: string) {
+  setSelectedYear(year);
 
-setDetailingServices(detailing);
-setShowDetailing(false);
+  setSelectedFuel("");
+  setFuels([]);
 
-    } catch (error) {
-      console.error("Search failed:", error);
-    }
+  if (!year) return;
+
+  try {
+    const data = await getFuels(
+      selectedMake,
+      selectedModel,
+      Number(year)
+    );
+
+    setFuels(data);
+  } catch (error) {
+    console.error("Error loading fuels:", error);
   }
+}
+
+
+async function handleSearch() {
+  if (
+    !selectedMake ||
+    !selectedModel ||
+    !selectedYear ||
+    !selectedFuel
+  ) {
+    alert("Please select all vehicle details.");
+    return;
+  }
+
+  try {
+    // 1. Battery
+    const battery = await getBattery(
+      selectedMake,
+      selectedModel,
+      Number(selectedYear),
+      selectedFuel
+    );
+
+    setResult(battery);
+    setShowBattery(false);
+
+    // 2. Windshield
+    const glass = await getWindshield(
+      selectedMake,
+      selectedModel,
+      Number(selectedYear)
+    );
+
+    setWindshields(glass);
+    setShowWindshield(false);
+
+    // 3. Vehicle Body Type
+    const bodyType = await getBodyType(
+      selectedMake,
+      selectedModel,
+      Number(selectedYear),
+      selectedFuel
+    );
+
+    console.log("BODY TYPE:", bodyType);
+
+    // 4. Detailing Packages
+    if (bodyType) {
+      const detailing = await getDetailingServices(bodyType);
+
+      console.log("DETAILING DATA:", detailing);
+
+      setDetailingServices(detailing);
+    } else {
+      setDetailingServices([]);
+    }
+
+    setShowDetailing(false);
+    setTimeout(() => {
+  dashboardRef.current?.scrollIntoView({
+    behavior: "smooth",
+    block: "start",
+  });
+}, 500);
+
+  } catch (error) {
+    console.error("Search failed:", error);
+  }
+}
+  
 
   return (
     <section
-      id="vehicle-finder"
-      className="relative z-20 -mt-40 pb-24"
-    >
+  id="vehicle-finder"
+  className="relative z-20 -mt-40 pb-24"
+>
+  <div className="mx-auto max-w-6xl px-6 sm:px-6">
+  </div>
+
+
       <div className="mx-auto max-w-6xl px-6">
 
         {/* HEADER */}
@@ -330,41 +341,68 @@ setShowDetailing(false);
             </div>
           )}
 
-          {/* SERVICE DASHBOARD */}
-          {(result.length > 0 ||
-            windshields.length > 0 ||
-            detailingServices.length > 0) && (
+           {/* SERVICE DASHBOARD */}
+{(result.length > 0 ||
+  windshields.length > 0 ||
+  detailingServices.length > 0) && (
 
-            <ServiceDashboard
-              batteryCount={result.length}
-              windshieldCount={windshields.length}
+  <div
+    ref={dashboardRef}
+    className="scroll-mt-24"
+  >
+    <ServiceDashboard
+      batteryCount={result.length}
+      windshieldCount={windshields.length}
 
-              onBatteryClick={() => {
-                setShowBattery(true);
-                setShowDetailing(false);
-                setShowWindshield(false);
-              }}
+      onBatteryClick={() => {
+        setShowBattery(true);
+        setShowDetailing(false);
+        setShowWindshield(false);
 
-              onDetailingClick={() => {
-                setShowBattery(false);
-                setShowDetailing(true);
-                setShowWindshield(false);
-              }}
+        setTimeout(() => {
+          batteryRef.current?.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }, 100);
+      }}
 
-              onWindshieldClick={() => {
-                setShowBattery(false);
-                setShowDetailing(false);
-                setShowWindshield(true);
-              }}
-            />
-          )}
+      onDetailingClick={() => {
+  console.log("DETAILING CLICKED");
+  console.log("DETAILING DATA:", detailingServices);
+        setShowBattery(false);
+        setShowDetailing(true);
+        setShowWindshield(false);
 
+        setTimeout(() => {
+          detailingRef.current?.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }, 100);
+      }}
+
+      onWindshieldClick={() => {
+        setShowBattery(false);
+        setShowDetailing(false);
+        setShowWindshield(true);
+
+        setTimeout(() => {
+          windshieldRef.current?.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }, 100);
+      }}
+    />
+  </div>
+)}
           {/* BATTERY */}
           {showBattery && result.length > 0 && (
-            <div
-              id="all-batteries"
-              className="mt-8 scroll-mt-24"
-            >
+             <div
+  id="all-batteries"
+  className="mt-8 scroll-mt-24"
+>
               <BatterySection
                 batteries={result}
                 make={selectedMake}
@@ -377,7 +415,10 @@ setShowDetailing(false);
 
           {/* DETAILING */}
           {showDetailing && detailingServices.length > 0 && (
-            <div className="mt-8 scroll-mt-24">
+            <div
+  ref={detailingRef}
+  className="mt-8 scroll-mt-24"
+>
               <DetailingSection
                 services={detailingServices}
               />
@@ -386,7 +427,10 @@ setShowDetailing(false);
 
           {/* WINDSHIELD */}
           {showWindshield && windshields.length > 0 && (
-            <div className="mt-8 scroll-mt-24">
+            <div
+  ref={windshieldRef}
+  className="mt-8 scroll-mt-24"
+>
               <WindshieldSection
                 windshields={windshields}
               />

@@ -66,3 +66,21 @@ h6 {
   width: min(1280px, calc(100% - 2rem));
   margin-inline: auto;
 }
+.brand-slider {
+  width: max-content;
+  animation: brandScroll 12s linear infinite;
+}
+
+.brand-slider:hover {
+  animation-play-state: paused;
+}
+
+@keyframes brandScroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}

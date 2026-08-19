@@ -30,7 +30,7 @@ const features = [
 
 export default function WhyVoltshine() {
   return (
-    <section className="bg-[#090909] py-24">
+    <section className="bg-[#090909] pt-20 pb-24 md:pt-24">
       <div className="mx-auto max-w-7xl px-6">
 
         <div className="text-center">

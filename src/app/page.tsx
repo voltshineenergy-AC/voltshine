@@ -9,6 +9,7 @@ import ContactSection from "@/components/common/ContactSection";
 import ContactCTA from "@/components/home/ContactCTA";
 import Footer from "@/components/layout/Footer";
 import FloatingButtons from "@/components/common/FloatingButtons";
+import BrandsSection from "@/components/home/BrandsSection";
 
 export default function Home() {
   return (
@@ -20,6 +21,8 @@ export default function Home() {
       <VehicleFinder />
 
       <WhyVoltshine />
+
+      <BrandsSection />
 
       <FeaturedServices />
 

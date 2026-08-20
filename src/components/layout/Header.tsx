@@ -1,15 +1,23 @@
 "use client";
 
+import Image from "next/image";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-black/80 backdrop-blur-md">
+    <header className="sticky top-0 z-20 w-full border-b border-white/10 bg-black/60 backdrop-blur-md">
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
-        <h1 className="text-3xl font-bold text-yellow-400">
-          Volt<span className="text-blue-400">Shine</span>
-        </h1>
+         <a href="/" className="flex items-center">
+            <Image
+  src="/logo/voltshine-logo.png"
+  alt="VoltShine Energy & Auto Care"
+  width={240}
+  height={75}
+  priority
+  className="h-16 w-auto object-contain"
+             />
+</a>
 
         <nav className="hidden gap-8 text-sm text-white lg:flex">
           <a href="#">Home</a>

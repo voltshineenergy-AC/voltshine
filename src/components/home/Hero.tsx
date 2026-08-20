@@ -51,7 +51,7 @@ Thank You.`
        <div className="relative z-10 mx-auto flex min-h-[85vh] max-w-7xl items-center pl-25 pr-2 sm:px-6">
 
         {/* LEFT CONTENT */}
-         <div className="relative left-3 w-full lg:left-0 lg:w-1/2">
+          <div className="relative left-3 top-[-50px] w-full lg:left-0 lg:top-0 lg:w-1/2">
 
           {/* Brand Label */}
           <p className="mb-4 text-sm font-semibold uppercase tracking-[8px] text-yellow-400">

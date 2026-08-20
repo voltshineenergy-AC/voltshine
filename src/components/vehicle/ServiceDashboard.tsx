@@ -35,16 +35,7 @@ export default function ServiceDashboard({
           </p>
 
    <button
-  onClick={() => {
-    onBatteryClick();
-
-    setTimeout(() => {
-      document.getElementById("all-batteries")?.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    }, 200);
-  }}
+       onClick={onBatteryClick}
   className="mt-6 w-full rounded-xl bg-yellow-400 py-3 font-bold text-black"
 >
   Explore Batteries

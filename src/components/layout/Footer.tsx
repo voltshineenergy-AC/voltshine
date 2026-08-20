@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Footer() {
@@ -10,21 +11,28 @@ export default function Footer() {
 
           {/* Brand */}
 
-          <div>
+         {/* Brand */}
 
-            <h2 className="text-3xl font-extrabold">
-              <span className="text-yellow-400">Volt</span>
-              <span className="text-blue-500">Shine</span>
-            </h2>
+<div>
 
-            <p className="mt-5 leading-7 text-gray-400">
-              India's Smart Energy & Auto Care Platform.
-              Doorstep Battery Replacement, Windshield,
-              Car Detailing, Solar & UPS Solutions across
-              Pune & PCMC.
-            </p>
+  <Link href="/" className="inline-flex items-center">
+    <Image
+      src="/logo/voltshine-logo.webp"
+      alt="VoltShine Energy & Auto Care"
+      width={240}
+      height={75}
+      className="h-16 w-auto object-contain"
+    />
+  </Link>
 
-          </div>
+  <p className="mt-5 leading-7 text-gray-400">
+    India's Smart Energy & Auto Care Platform.
+    Doorstep Battery Replacement, Windshield,
+    Car Detailing, Solar & UPS Solutions across
+    Pune & PCMC.
+  </p>
+
+</div>
 
           {/* Services */}
 

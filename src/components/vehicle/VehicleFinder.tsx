@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
+
 import {
   getMakes,
   getModels,
@@ -206,7 +207,7 @@ async function handleSearch() {
   return (
     <section
   id="vehicle-finder"
-  className="relative z-20 -mt-40 pb-24"
+  className="relative z-20 pb-24"
 >
   <div className="mx-auto max-w-6xl px-6 -translate-x-2">
   </div>
@@ -342,13 +343,13 @@ async function handleSearch() {
           )}
 
            {/* SERVICE DASHBOARD */}
-{(result.length > 0 ||
-  windshields.length > 0 ||
-  detailingServices.length > 0) && (
+            {(result.length > 0 ||
+            windshields.length > 0 ||
+            detailingServices.length > 0) && (
 
-  <div
-    ref={dashboardRef}
-    className="scroll-mt-24"
+           <div
+           ref={dashboardRef}
+            className="scroll-mt-24 mt-10"
   >
     <ServiceDashboard
       batteryCount={result.length}
@@ -420,8 +421,11 @@ async function handleSearch() {
   className="mt-8 scroll-mt-24"
 >
               <DetailingSection
-                services={detailingServices}
-              />
+  services={detailingServices}
+  make={selectedMake}
+  model={selectedModel}
+  year={selectedYear}
+/>
             </div>
           )}
 
@@ -432,8 +436,11 @@ async function handleSearch() {
   className="mt-8 scroll-mt-24"
 >
               <WindshieldSection
-                windshields={windshields}
-              />
+  windshields={windshields}
+  make={selectedMake}
+  model={selectedModel}
+  year={selectedYear}
+/>
             </div>
           )}
 

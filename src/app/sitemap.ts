@@ -64,7 +64,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }
 
   // REMOVE DUPLICATE MAKE + MODEL
-  const uniqueVehicles = new Map<string, { make: string; model: string }>();
+  const uniqueVehicles = new Map<
+    string,
+    {
+      make: string;
+      model: string;
+    }
+  >();
 
   for (const vehicle of data || []) {
     if (!vehicle.make || !vehicle.model) continue;
@@ -92,6 +98,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     uniqueVehicles.values()
   ).map((vehicle) => ({
     url: `${baseUrl}/battery/${vehicle.make}/${vehicle.model}`,
+    lastModified: new Date(),
     changeFrequency: "monthly",
     priority: 0.8,
   }));

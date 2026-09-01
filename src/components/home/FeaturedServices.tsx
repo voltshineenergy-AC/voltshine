@@ -41,20 +41,20 @@ const services = [
     button: "Call Now",
     href: "tel:+919270300889",
   },
-  {
-    title: "Solar Solutions",
-    icon: Sun,
-    price: "Residential & Commercial",
-    desc: "On Grid & Off Grid Solar Systems",
-    button: "Coming Soon",
-    href: "#",
-  },
+   {
+  title: "Solar Solutions",
+  icon: Sun,
+  price: "Residential & Commercial",
+  desc: "On Grid & Off Grid Solar Systems",
+  button: "Get Quote",
+  href: "/solar",
+},
   {
     title: "UPS & Inverter",
     icon: Cpu,
     price: "Home & Office Backup",
     desc: "Sales, Installation & AMC",
-    button: "Coming Soon",
+    button: "Get Quote",
     href: "#",
   },
 ];
@@ -68,14 +68,14 @@ export default function FeaturedServices() {
           Our Services
         </p>
 
-        <h2 className="mt-2 text-center text-5xl font-bold text-white">
-          Complete Automotive Solutions
-        </h2>
+           <h2 className="mt-2 text-center text-5xl font-bold text-white">
+           Complete Energy & Auto Care Solutions
+           </h2>
 
-        <p className="mx-auto mt-4 max-w-3xl text-center text-gray-400">
-          Everything your vehicle needs — from batteries and detailing to
-          windshield replacement, emergency support, solar and power backup.
-        </p>
+              <p className="mx-auto mt-4 max-w-3xl text-center text-gray-400">
+                From car batteries and emergency assistance to detailing, windshield
+                 replacement, solar systems and reliable power backup solutions.
+              </p>
 
         <div className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
 

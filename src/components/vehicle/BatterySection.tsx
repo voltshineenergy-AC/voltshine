@@ -5,7 +5,6 @@ import { openWhatsApp } from "@/lib/whatsapp";
 type Battery = {
   id?: string | number;
   battery_brand: string;
-  battery_model?: string;
   ah: number;
   mrp: number;
   dp: number;
@@ -13,7 +12,6 @@ type Battery = {
   fuel?: string;
   from_year?: number;
   to_year?: number;
-  series?: string;
 };
 
 type Props = {
@@ -31,27 +29,49 @@ export default function BatterySection({
   year,
   fuel,
 }: Props) {
-    const sortedBatteries = [...batteries].sort((a, b) => {
+  // REMOVE DUPLICATE BATTERIES
+  const uniqueBatteries = Array.from(
+    new Map(
+      batteries.map((battery) => [
+        `${battery.battery_brand}-${battery.ah}-${battery.dp}-${battery.warranty}`,
+        battery,
+      ])
+    ).values()
+  );
+
+  // EXIDE FIRST
+  const sortedBatteries = [...uniqueBatteries].sort((a, b) => {
     if (a.battery_brand?.toLowerCase() === "exide") return -1;
     if (b.battery_brand?.toLowerCase() === "exide") return 1;
     return 0;
   });
+
   return (
-   <div id="all-batteries">
+    <div id="all-batteries">
+
+      {/* SECTION TITLE */}
       <h3 className="mb-6 text-3xl font-bold text-yellow-400">
         Compatible Batteries
       </h3>
 
+      {/* BATTERY GRID */}
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+
         {sortedBatteries.map((battery, index) => (
+
           <div
-            key={battery.id ?? index}
-            className="flex flex-col rounded-3xl border border-yellow-400/20 bg-[#1c1c1c] p-6"
+            key={`${battery.battery_brand}-${battery.ah}-${battery.dp}-${index}`}
+            className="flex flex-col rounded-3xl border border-yellow-400/20 bg-[#1c1c1c] p-6 transition duration-300 hover:-translate-y-1 hover:border-yellow-400/50"
           >
-            {/* HEADER */}
+
+            {/* ================= HEADER ================= */}
+
             <div className="flex items-start justify-between gap-3">
+
               <div>
+
                 <div className="flex items-center gap-2">
+
                   <h4 className="text-2xl font-bold text-yellow-400">
                     {battery.battery_brand}
                   </h4>
@@ -61,43 +81,50 @@ export default function BatterySection({
                       Recommended
                     </span>
                   )}
+
                 </div>
 
-                {battery.battery_model && (
-                  <p className="mt-1 text-sm font-semibold text-white">
-                    {battery.battery_model}
-                  </p>
-                )}
               </div>
 
+              {/* AH */}
               <div className="rounded-full bg-yellow-400 px-4 py-2">
                 <span className="font-bold text-black">
                   {battery.ah} AH
                 </span>
               </div>
+
             </div>
 
-            {/* FEATURES */}
-           <div className="mt-5 space-y-2 text-sm text-gray-300">
-  <p>✓ Compatible with selected vehicle</p>
+            {/* ================= FEATURES ================= */}
 
-  {battery.series && (
-    <p>✓ Series: {battery.series}</p>
-  )}
+            <div className="mt-5 space-y-2 text-sm text-gray-300">
 
-  <p>✓ Manufacturer Warranty: {battery.warranty}</p>
+              <p>
+                ✓ Compatible with selected vehicle
+              </p>
 
-  <p>✓ Free Doorstep Installation</p>
+              <p>
+                ✓ Manufacturer Warranty: {battery.warranty}
+              </p>
 
-  <p>✓ Old Battery Exchange Available</p>
-</div>
+              <p>
+                ✓ Free Doorstep Installation
+              </p>
 
-            {/* PRICING */}
+              <p>
+                ✓ Old Battery Exchange Available
+              </p>
+
+            </div>
+
+            {/* ================= PRICING ================= */}
+
             <div className="mt-6 border-t border-gray-700 pt-5">
-              
-              {/* MRP */}
+
+              {/* MRP + SAVINGS */}
               {battery.mrp > battery.dp && (
-                <div className="flex items-center gap-2">
+                <div className="flex flex-wrap items-center gap-2">
+
                   <p className="text-sm text-gray-500 line-through">
                     MRP ₹{battery.mrp.toLocaleString("en-IN")}
                   </p>
@@ -106,6 +133,7 @@ export default function BatterySection({
                     SAVE ₹
                     {(battery.mrp - battery.dp).toLocaleString("en-IN")}
                   </span>
+
                 </div>
               )}
 
@@ -126,16 +154,20 @@ export default function BatterySection({
               <p className="mt-2 text-sm font-medium text-blue-400">
                 🛡 {battery.warranty}
               </p>
+
             </div>
 
-            {/* BUTTONS */}
+            {/* ================= BUTTONS ================= */}
+
             <div className="mt-6 flex gap-3">
+
+              {/* CHECK AVAILABILITY */}
               <button
                 onClick={() =>
                   openWhatsApp(
                     `Hello VoltShine 👋
 
-I want to book a battery replacement.
+I want to check battery availability.
 
 ━━━━━━━━━━━━━━━━━━
 🚗 VEHICLE DETAILS
@@ -167,6 +199,7 @@ Thank You.`
                 Check Availability
               </button>
 
+              {/* WHATSAPP */}
               <button
                 onClick={() =>
                   openWhatsApp(
@@ -202,13 +235,19 @@ Thank You.`
               >
                 WhatsApp
               </button>
+
             </div>
+
           </div>
+
         ))}
+
       </div>
 
-      {/* OTHER BATTERY CTA */}
+      {/* ================= OTHER BATTERY CTA ================= */}
+
       <div className="mt-8 rounded-3xl border border-yellow-400 bg-[#1c1c1c] p-8 text-center">
+
         <h3 className="text-2xl font-bold text-white">
           ⭐ Looking for Another Battery?
         </h3>
@@ -236,7 +275,9 @@ Please share your best price.`
         >
           Request Best Price
         </button>
+
       </div>
+
     </div>
   );
 }

@@ -14,75 +14,129 @@ export default function ServiceDashboard({
   onWindshieldClick,
 }: Props) {
   return (
-    <div className="mt-10">
+    <section className="mt-8 px-0">
 
-      <h3 className="mb-8 text-3xl font-bold text-yellow-400">
-        Services Available For Your Vehicle
-      </h3>
+      {/* HEADER */}
+      <div className="mb-5">
+        <p className="text-xs font-semibold uppercase tracking-[3px] text-yellow-400">
+          VOLTSHINE SERVICES
+        </p>
 
-      <div className="grid gap-6 md:grid-cols-3">
+        <h3 className="mt-2 text-2xl font-extrabold leading-tight text-white">
+          Services Available
+          <br />
+          <span className="text-yellow-400">
+            For Your Vehicle
+          </span>
+        </h3>
+      </div>
 
-        {/* Battery */}
-        <div className="rounded-3xl border border-yellow-400/20 bg-[#1c1c1c] p-6">
-          <div className="text-5xl">🔋</div>
+      {/* SERVICE CARDS */}
+      <div className="grid grid-cols-1 gap-4">
 
-          <h4 className="mt-4 text-2xl font-bold text-white">
-            Battery Replacement
-          </h4>
+        {/* BATTERY */}
+        <div className="rounded-2xl border border-yellow-400/20 bg-[#1c1c1c] p-5">
 
-          <p className="mt-2 text-gray-400">
-            {batteryCount} Compatible Batteries Available
-          </p>
+          <div className="flex items-start justify-between">
 
-   <button
-       onClick={onBatteryClick}
-  className="mt-6 w-full rounded-xl bg-yellow-400 py-3 font-bold text-black"
->
-  Explore Batteries
-</button>   
+            <div>
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-yellow-400/10 text-3xl">
+                🔋
+              </div>
+
+              <h4 className="mt-4 text-xl font-bold text-white">
+                Battery Replacement
+              </h4>
+
+              <p className="mt-1 text-sm text-gray-400">
+                {batteryCount} Compatible Batteries Available
+              </p>
+            </div>
+
+            <span className="rounded-full bg-green-500/10 px-3 py-1 text-xs font-semibold text-green-400">
+              Available
+            </span>
+
+          </div>
+
+          <button
+            onClick={onBatteryClick}
+            className="mt-5 w-full rounded-xl bg-yellow-400 py-3.5 text-sm font-bold text-black transition active:scale-[0.98]"
+          >
+            Explore Batteries →
+          </button>
+
         </div>
 
-     {/* Detailing */}
-<div className="rounded-3xl border border-yellow-400/20 bg-[#1c1c1c] p-6">
-  <div className="text-5xl">✨</div>
+        {/* DETAILING */}
+        <div className="rounded-2xl border border-yellow-400/20 bg-[#1c1c1c] p-5">
 
-  <h4 className="mt-4 text-2xl font-bold text-white">
-    Car Detailing
-  </h4>
+          <div className="flex items-start justify-between">
 
-  <p className="mt-2 text-gray-400">
-    4 Premium Packages Available
-  </p>
+            <div>
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-yellow-400/10 text-3xl">
+                ✨
+              </div>
 
-  <button
-    onClick={onDetailingClick}
-    className="mt-6 w-full rounded-xl bg-yellow-400 py-3 font-bold text-black"
-  >
-    Explore Packages
-  </button>
-</div>
+              <h4 className="mt-4 text-xl font-bold text-white">
+                Car Detailing
+              </h4>
 
-        {/* Windshield */}
-<div className="rounded-3xl border border-yellow-400/20 bg-[#1c1c1c] p-6">
-  <div className="text-5xl">🪟</div>
+              <p className="mt-1 text-sm text-gray-400">
+                Premium detailing packages
+              </p>
+            </div>
 
-  <h4 className="mt-4 text-2xl font-bold text-white">
-    Windshield Replacement
-  </h4>
+            <span className="rounded-full bg-yellow-400/10 px-3 py-1 text-xs font-semibold text-yellow-400">
+              Premium
+            </span>
 
- <p className="mt-2 text-gray-400">
-  {windshieldCount} Glass Options Available
-</p>
+          </div>
 
-<button
-  onClick={onWindshieldClick}
-  className="mt-6 w-full rounded-xl bg-yellow-400 py-3 font-bold text-black"
->
-  Get Quote
-</button>
-</div>
+          <button
+            onClick={onDetailingClick}
+            className="mt-5 w-full rounded-xl bg-yellow-400 py-3.5 text-sm font-bold text-black transition active:scale-[0.98]"
+          >
+            Explore Packages →
+          </button>
+
+        </div>
+
+        {/* WINDSHIELD */}
+        <div className="rounded-2xl border border-yellow-400/20 bg-[#1c1c1c] p-5">
+
+          <div className="flex items-start justify-between">
+
+            <div>
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-yellow-400/10 text-3xl">
+                🪟
+              </div>
+
+              <h4 className="mt-4 text-xl font-bold text-white">
+                Windshield Replacement
+              </h4>
+
+              <p className="mt-1 text-sm text-gray-400">
+                {windshieldCount} Glass Options Available
+              </p>
+            </div>
+
+            <span className="rounded-full bg-blue-500/10 px-3 py-1 text-xs font-semibold text-blue-400">
+              Get Quote
+            </span>
+
+          </div>
+
+          <button
+            onClick={onWindshieldClick}
+            className="mt-5 w-full rounded-xl bg-yellow-400 py-3.5 text-sm font-bold text-black transition active:scale-[0.98]"
+          >
+            Get Windshield Quote →
+          </button>
+
+        </div>
 
       </div>
-    </div>
+    </section>
   );
 }

@@ -59,6 +59,7 @@ export default async function BatteryPage({
   const selectedYear = year ? Number(year) : null;
   const selectedFuel = fuel ? formatText(fuel) : null;
 
+  // SUPABASE QUERY
   let query = supabase
     .from("battery_master")
     .select(
@@ -107,7 +108,7 @@ export default async function BatteryPage({
     <main className="min-h-screen bg-black px-5 py-16 text-white">
       <div className="mx-auto max-w-7xl">
 
-        {/* HEADER */}
+        {/* ================= HEADER ================= */}
 
         <p className="text-sm font-semibold uppercase tracking-[5px] text-yellow-400">
           VOLTSHINE BATTERY SERVICE
@@ -117,7 +118,7 @@ export default async function BatteryPage({
           {formattedMake} {formattedModel} Battery Replacement in Pune
         </h1>
 
-        {/* SELECTED VEHICLE */}
+        {/* ================= SELECTED VEHICLE ================= */}
 
         {selectedYear && selectedFuel && (
           <div className="mt-5 flex flex-wrap gap-3">
@@ -137,7 +138,7 @@ export default async function BatteryPage({
           </div>
         )}
 
-        {/* DESCRIPTION */}
+        {/* ================= DESCRIPTION ================= */}
 
         <p className="mt-5 max-w-3xl text-lg text-gray-400">
           Find compatible batteries for your{" "}
@@ -146,7 +147,7 @@ export default async function BatteryPage({
           PCMC.
         </p>
 
-        {/* VEHICLE FILTER */}
+        {/* ================= VEHICLE FILTER ================= */}
 
         <div className="mt-8 rounded-3xl border border-yellow-400/20 bg-[#1c1c1c] p-6">
 
@@ -234,7 +235,7 @@ export default async function BatteryPage({
 
         </div>
 
-        {/* BATTERY RESULTS */}
+        {/* ================= BATTERY RESULTS ================= */}
 
         {batteries && batteries.length > 0 ? (
 
@@ -252,7 +253,7 @@ export default async function BatteryPage({
 
         ) : (
 
-          /* NO BATTERY */
+          /* ================= NO BATTERY ================= */
 
           <div className="mt-12 rounded-3xl border border-white/10 bg-[#1c1c1c] p-8">
 

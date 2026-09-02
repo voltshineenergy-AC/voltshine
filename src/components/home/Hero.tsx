@@ -14,7 +14,7 @@ Thank You.`
   );
 
   return (
-       <section className="relative min-h-[680px] overflow-hidden bg-[#090909] sm:min-h-[calc(100svh-86px)]">
+       <section className="relative min-h-[350px] overflow-hidden bg-[#090909] sm:min-h-[calc(100svh-86px)]">
 
       {/* BACKGROUND IMAGE */}
       <div className="absolute inset-0">
@@ -31,7 +31,7 @@ Thank You.`
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black via-black/80 to-black/95 sm:bg-gradient-to-r sm:from-black sm:via-black/80 sm:to-black/20" />
 
       {/* CONTENT */}
-       <div className="relative z-10 mx-auto flex min-h-[680px] max-w-7xl items-start px-5 pb-20 pt-24 sm:min-h-[calc(100svh-86px)] sm:items-center sm:px-6 sm:py-24 lg:px-8">
+       <div className="relative z-10 mx-auto flex min-h-[350px] max-w-7xl items-start px-5 pb-20 pt-24 sm:min-h-[calc(100svh-86px)] sm:items-center sm:px-6 sm:py-24 lg:px-8">
 
         <div className="w-full max-w-xl">
 

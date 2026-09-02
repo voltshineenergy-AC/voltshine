@@ -17,7 +17,7 @@ export default function Footer() {
 
   <Link href="/" className="inline-flex items-center">
     <Image
-      src="/logo/voltshine-logo.webp"
+       src="/logo/voltshine-logo.png"
       alt="VoltShine Energy & Auto Care"
       width={240}
       height={75}

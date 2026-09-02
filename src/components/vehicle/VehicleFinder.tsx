@@ -38,6 +38,8 @@ export default function VehicleFinder() {
   const [showDetailing, setShowDetailing] = useState(false);
   const [showWindshield, setShowWindshield] = useState(false);
 
+  const [loading, setLoading] = useState(false);
+
   const dashboardRef = useRef<HTMLDivElement>(null);
   const batteryRef = useRef<HTMLDivElement>(null);
   const detailingRef = useRef<HTMLDivElement>(null);
@@ -152,6 +154,16 @@ export default function VehicleFinder() {
       return;
     }
 
+    setLoading(true);
+
+    setResult([]);
+    setWindshields([]);
+    setDetailingServices([]);
+
+    setShowBattery(false);
+    setShowDetailing(false);
+    setShowWindshield(false);
+
     try {
       /* ================= BATTERY ================= */
 
@@ -163,7 +175,6 @@ export default function VehicleFinder() {
       );
 
       setResult(battery);
-      setShowBattery(false);
 
       /* ================= WINDSHIELD ================= */
 
@@ -174,7 +185,6 @@ export default function VehicleFinder() {
       );
 
       setWindshields(glass);
-      setShowWindshield(false);
 
       /* ================= BODY TYPE ================= */
 
@@ -199,9 +209,7 @@ export default function VehicleFinder() {
         setDetailingServices([]);
       }
 
-      setShowDetailing(false);
-
-      /* ================= SCROLL ================= */
+      /* ================= SHOW DASHBOARD ================= */
 
       setTimeout(() => {
         dashboardRef.current?.scrollIntoView({
@@ -211,23 +219,22 @@ export default function VehicleFinder() {
       }, 300);
     } catch (error) {
       console.error("Search failed:", error);
+      alert("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
     }
   }
+
+  const isVehicleSelected =
+    selectedMake &&
+    selectedModel &&
+    selectedYear &&
+    selectedFuel;
 
   return (
     <section
       id="vehicle-finder"
-      className="
-        relative
-        z-20
-        bg-[#090909]
-        px-4
-        pb-14
-        pt-12
-        sm:px-6
-        sm:pb-20
-        sm:pt-16
-      "
+      className="relative z-20 bg-[#090909] px-4 pb-12 pt-24 sm:px-6 sm:pb-20 sm:pt-16"
     >
       <div className="mx-auto w-full max-w-6xl">
 
@@ -235,50 +242,19 @@ export default function VehicleFinder() {
 
         <div className="text-center">
 
-          <p
-            className="
-              text-[10px]
-              font-bold
-              uppercase
-              tracking-[3px]
-              text-yellow-400
-              sm:text-sm
-              sm:tracking-[5px]
-            "
-          >
+          <p className="text-[10px] font-bold uppercase tracking-[3px] text-yellow-400 sm:text-sm sm:tracking-[5px]">
             VOLTSHINE VEHICLE FINDER
           </p>
 
-          <h2
-            className="
-              mt-3
-              text-3xl
-              font-extrabold
-              leading-tight
-              text-white
-              sm:text-4xl
-              md:text-5xl
-            "
-          >
+          <h2 className="mt-3 text-[30px] font-extrabold leading-[1.1] text-white sm:text-4xl md:text-5xl">
             Find The Right
             <br />
-
             <span className="text-yellow-400">
               Solution For Your Car
             </span>
           </h2>
 
-          <p
-            className="
-              mx-auto
-              mt-3
-              max-w-xl
-              text-sm
-              leading-6
-              text-gray-400
-              sm:text-lg
-            "
-          >
+          <p className="mx-auto mt-3 max-w-xl text-[13px] leading-5 text-gray-400 sm:text-lg sm:leading-7">
             Select your vehicle to find compatible battery,
             windshield and detailing services.
           </p>
@@ -287,68 +263,45 @@ export default function VehicleFinder() {
 
         {/* ================= FINDER BOX ================= */}
 
-        <div
-          className="
-            mt-8
-            rounded-3xl
-            border
-            border-yellow-400/10
-            bg-[#151515]
-            p-4
-            shadow-[0_20px_60px_rgba(0,0,0,0.5)]
-            sm:mt-10
-            sm:p-6
-            md:p-8
-          "
-        >
+        <div className="mt-7 rounded-3xl border border-yellow-400/10 bg-[#151515] p-4 shadow-[0_20px_60px_rgba(0,0,0,0.5)] sm:mt-10 sm:p-6 md:p-8">
 
-          {/* ================= STEP LABEL ================= */}
+          {/* ================= STEP HEADER ================= */}
 
-          <div className="mb-5">
+          <div className="mb-5 flex items-center justify-between gap-3">
 
-            <p className="text-xs font-semibold uppercase tracking-[2px] text-gray-500">
-              Select Your Vehicle
-            </p>
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[2px] text-yellow-400">
+                Find Your Vehicle
+              </p>
 
-            <p className="mt-1 text-sm text-gray-400">
-              Make → Model → Year → Fuel
-            </p>
+              <p className="mt-1 text-xs text-gray-500 sm:text-sm">
+                Make → Model → Year → Fuel
+              </p>
+            </div>
+
+            <div className="hidden shrink-0 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-[10px] font-semibold text-gray-400 sm:block">
+              4 EASY STEPS
+            </div>
 
           </div>
 
           {/* ================= SELECTORS ================= */}
 
-          <div className="grid grid-cols-1 gap-3">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
 
             {/* MAKE */}
 
             <div>
-              <label className="mb-2 block text-xs font-semibold uppercase tracking-wide text-gray-400">
+              <label className="mb-2 block text-[11px] font-bold uppercase tracking-wider text-gray-400">
                 01 · Make
               </label>
 
               <select
                 value={selectedMake}
                 onChange={(e) => handleMake(e.target.value)}
-                className="
-                  h-14
-                  w-full
-                  rounded-2xl
-                  border
-                  border-white/10
-                  bg-[#0b0b0b]
-                  px-4
-                  text-base
-                  font-medium
-                  text-white
-                  outline-none
-                  transition
-                  focus:border-yellow-400
-                "
+                className="h-14 w-full rounded-2xl border border-white/10 bg-[#0b0b0b] px-4 text-[15px] font-semibold text-white outline-none transition focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400/30"
               >
-                <option value="">
-                  Select Make
-                </option>
+                <option value="">Select Make</option>
 
                 {makes.map((make) => (
                   <option key={make} value={make}>
@@ -361,7 +314,7 @@ export default function VehicleFinder() {
             {/* MODEL */}
 
             <div>
-              <label className="mb-2 block text-xs font-semibold uppercase tracking-wide text-gray-400">
+              <label className="mb-2 block text-[11px] font-bold uppercase tracking-wider text-gray-400">
                 02 · Model
               </label>
 
@@ -369,23 +322,7 @@ export default function VehicleFinder() {
                 value={selectedModel}
                 onChange={(e) => handleModel(e.target.value)}
                 disabled={!selectedMake}
-                className="
-                  h-14
-                  w-full
-                  rounded-2xl
-                  border
-                  border-white/10
-                  bg-[#0b0b0b]
-                  px-4
-                  text-base
-                  font-medium
-                  text-white
-                  outline-none
-                  transition
-                  focus:border-yellow-400
-                  disabled:cursor-not-allowed
-                  disabled:opacity-40
-                "
+                className="h-14 w-full rounded-2xl border border-white/10 bg-[#0b0b0b] px-4 text-[15px] font-semibold text-white outline-none transition focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400/30 disabled:cursor-not-allowed disabled:opacity-40"
               >
                 <option value="">
                   {selectedMake
@@ -404,7 +341,7 @@ export default function VehicleFinder() {
             {/* YEAR */}
 
             <div>
-              <label className="mb-2 block text-xs font-semibold uppercase tracking-wide text-gray-400">
+              <label className="mb-2 block text-[11px] font-bold uppercase tracking-wider text-gray-400">
                 03 · Year
               </label>
 
@@ -412,23 +349,7 @@ export default function VehicleFinder() {
                 value={selectedYear}
                 onChange={(e) => handleYear(e.target.value)}
                 disabled={!selectedModel}
-                className="
-                  h-14
-                  w-full
-                  rounded-2xl
-                  border
-                  border-white/10
-                  bg-[#0b0b0b]
-                  px-4
-                  text-base
-                  font-medium
-                  text-white
-                  outline-none
-                  transition
-                  focus:border-yellow-400
-                  disabled:cursor-not-allowed
-                  disabled:opacity-40
-                "
+                className="h-14 w-full rounded-2xl border border-white/10 bg-[#0b0b0b] px-4 text-[15px] font-semibold text-white outline-none transition focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400/30 disabled:cursor-not-allowed disabled:opacity-40"
               >
                 <option value="">
                   {selectedModel
@@ -447,7 +368,7 @@ export default function VehicleFinder() {
             {/* FUEL */}
 
             <div>
-              <label className="mb-2 block text-xs font-semibold uppercase tracking-wide text-gray-400">
+              <label className="mb-2 block text-[11px] font-bold uppercase tracking-wider text-gray-400">
                 04 · Fuel
               </label>
 
@@ -455,23 +376,7 @@ export default function VehicleFinder() {
                 value={selectedFuel}
                 onChange={(e) => setSelectedFuel(e.target.value)}
                 disabled={!selectedYear}
-                className="
-                  h-14
-                  w-full
-                  rounded-2xl
-                  border
-                  border-white/10
-                  bg-[#0b0b0b]
-                  px-4
-                  text-base
-                  font-medium
-                  text-white
-                  outline-none
-                  transition
-                  focus:border-yellow-400
-                  disabled:cursor-not-allowed
-                  disabled:opacity-40
-                "
+                className="h-14 w-full rounded-2xl border border-white/10 bg-[#0b0b0b] px-4 text-[15px] font-semibold text-white outline-none transition focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400/30 disabled:cursor-not-allowed disabled:opacity-40"
               >
                 <option value="">
                   {selectedYear
@@ -487,78 +392,45 @@ export default function VehicleFinder() {
               </select>
             </div>
 
-            {/* SEARCH BUTTON */}
-
-            <button
-              onClick={handleSearch}
-              className="
-                mt-2
-                h-14
-                w-full
-                rounded-2xl
-                bg-yellow-400
-                text-base
-                font-extrabold
-                text-black
-                shadow-[0_8px_30px_rgba(250,204,21,0.15)]
-                transition
-                active:scale-[0.98]
-                hover:bg-yellow-300
-              "
-            >
-              Find My Solution →
-            </button>
-
           </div>
+
+          {/* ================= SEARCH BUTTON ================= */}
+
+          <button
+            onClick={handleSearch}
+            disabled={!isVehicleSelected || loading}
+            className="mt-5 h-14 w-full rounded-2xl bg-yellow-400 text-[15px] font-extrabold text-black shadow-[0_8px_30px_rgba(250,204,21,0.15)] transition active:scale-[0.98] hover:bg-yellow-300 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-yellow-400"
+          >
+            {loading ? "Finding Your Services..." : "Find My Solution →"}
+          </button>
 
           {/* ================= SELECTED VEHICLE ================= */}
 
           {selectedMake && selectedModel && (
-            <div
-              className="
-                mt-5
-                rounded-2xl
-                border
-                border-yellow-400/20
-                bg-[#0d0d0d]
-                p-4
-              "
-            >
+            <div className="mt-5 rounded-2xl border border-yellow-400/20 bg-[#0d0d0d] p-4">
 
-              <div className="flex items-center justify-between gap-3">
+              <div className="flex items-center gap-3">
 
-                <div>
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-yellow-400/10 text-xl">
+                  🚗
+                </div>
 
-                  <p className="text-[10px] font-bold uppercase tracking-[2px] text-yellow-400">
+                <div className="min-w-0">
+
+                  <p className="text-[9px] font-bold uppercase tracking-[2px] text-yellow-400">
                     SELECTED VEHICLE
                   </p>
 
-                  <h3 className="mt-1 text-lg font-bold text-white">
+                  <h3 className="mt-0.5 truncate text-base font-bold text-white sm:text-lg">
                     {selectedMake} {selectedModel}
                   </h3>
 
                   {selectedYear && selectedFuel && (
-                    <p className="mt-1 text-xs text-gray-400">
+                    <p className="mt-0.5 text-xs text-gray-400">
                       {selectedYear} • {selectedFuel}
                     </p>
                   )}
 
-                </div>
-
-                <div
-                  className="
-                    flex
-                    h-11
-                    w-11
-                    shrink-0
-                    items-center
-                    justify-center
-                    rounded-full
-                    bg-yellow-400/10
-                    text-xl
-                  "
-                >
-                  🚗
                 </div>
 
               </div>
@@ -571,12 +443,10 @@ export default function VehicleFinder() {
           {(result.length > 0 ||
             windshields.length > 0 ||
             detailingServices.length > 0) && (
-
             <div
               ref={dashboardRef}
               className="mt-8 scroll-mt-6"
             >
-
               <ServiceDashboard
                 batteryCount={result.length}
                 windshieldCount={windshields.length}
@@ -595,12 +465,6 @@ export default function VehicleFinder() {
                 }}
 
                 onDetailingClick={() => {
-                  console.log("DETAILING CLICKED");
-                  console.log(
-                    "DETAILING DATA:",
-                    detailingServices
-                  );
-
                   setShowBattery(false);
                   setShowDetailing(true);
                   setShowWindshield(false);
@@ -626,7 +490,6 @@ export default function VehicleFinder() {
                   }, 100);
                 }}
               />
-
             </div>
           )}
 

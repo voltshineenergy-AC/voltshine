@@ -25,75 +25,129 @@ export default function WindshieldSection({
   year,
 }: Props) {
   return (
-    <div className="mt-10 scroll-mt-24">
+    <div className="mt-8 scroll-mt-24">
 
-      {/* HEADER */}
-      <div className="mb-8">
-        <p className="text-sm font-semibold uppercase tracking-[4px] text-yellow-400">
+      {/* ================= HEADER ================= */}
+
+      <div className="mb-6">
+        <p className="text-[10px] font-bold uppercase tracking-[3px] text-yellow-400 sm:text-xs">
           WINDSHIELD SERVICE
         </p>
 
-        <h2 className="mt-2 text-4xl font-bold text-yellow-400">
+        <h2 className="mt-2 text-[28px] font-extrabold leading-tight text-white sm:text-3xl">
           Windshield Replacement
         </h2>
 
-        <p className="mt-2 text-gray-400">
-          Genuine quality glass with professional installation.
+        <p className="mt-2 max-w-xl text-sm leading-5 text-gray-400">
+          Quality glass with professional fitment and installation warranty.
         </p>
       </div>
 
-      {/* GLASS OPTIONS */}
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {/* ================= GLASS OPTIONS ================= */}
+
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
 
         {windshields.map((glass, index) => {
-
           const saving = glass.mrp - glass.price;
 
           return (
             <div
               key={index}
-              className="flex flex-col rounded-3xl border border-yellow-400/20 bg-[#1c1c1c] p-6 transition hover:-translate-y-1 hover:border-yellow-400/50"
+              className="
+                flex
+                flex-col
+                rounded-2xl
+                border
+                border-yellow-400/20
+                bg-[#1c1c1c]
+                p-5
+                transition
+                hover:-translate-y-1
+                hover:border-yellow-400/50
+              "
             >
 
-              {/* SAVING */}
+              {/* ================= TOP BADGE ================= */}
+
               {saving > 0 && (
-                <div className="mb-4 inline-block w-fit rounded-full bg-green-500 px-3 py-1 text-xs font-bold text-white">
-                  SAVE ₹{saving.toLocaleString("en-IN")}
+                <div className="mb-4 inline-flex w-fit rounded-full bg-green-500/10 px-3 py-1.5">
+                  <span className="text-[10px] font-bold uppercase tracking-wide text-green-400">
+                    Save ₹{saving.toLocaleString("en-IN")}
+                  </span>
                 </div>
               )}
 
-              {/* ICON */}
-              <div className="text-5xl">
-                🪟
+              {/* ================= ICON + BRAND ================= */}
+
+              <div className="flex items-start justify-between gap-3">
+
+                <div className="min-w-0">
+
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-yellow-400/10 text-3xl">
+                    🪟
+                  </div>
+
+                  <h3 className="mt-4 text-xl font-extrabold text-yellow-400">
+                    {glass.glass_brand}
+                  </h3>
+
+                  <p className="mt-1 text-sm text-gray-400">
+                    {glass.glass_type}
+                  </p>
+
+                </div>
+
+                <span className="shrink-0 rounded-full bg-blue-500/10 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-blue-400">
+                  Quality
+                </span>
+
               </div>
 
-              {/* BRAND */}
-              <h3 className="mt-4 text-2xl font-bold text-yellow-400">
-                {glass.glass_brand}
-              </h3>
+              {/* ================= FEATURES ================= */}
 
-              <p className="mt-1 text-gray-400">
-                {glass.glass_type}
-              </p>
+              <div className="mt-5 space-y-2.5 text-sm text-gray-300">
 
-              {/* FEATURES */}
-              <div className="mt-5 space-y-2 text-sm text-gray-300">
-                <p>✓ Quality Windshield Glass</p>
-                <p>✓ Professional Fitment</p>
-                <p>✓ Leak-Checked Installation</p>
-                <p>✓ Doorstep Installation Available</p>
-
-                <p className="text-blue-400">
-                  🛡 {glass.warranty}
+                <p className="flex gap-2">
+                  <span className="text-green-400">✓</span>
+                  Quality Windshield Glass
                 </p>
 
-                <p className="text-gray-300">
+                <p className="flex gap-2">
+                  <span className="text-green-400">✓</span>
+                  Professional Fitment
+                </p>
+
+                <p className="flex gap-2">
+                  <span className="text-green-400">✓</span>
+                  Leak-Checked Installation
+                </p>
+
+                <p className="flex gap-2">
+                  <span className="text-green-400">✓</span>
+                  Doorstep Installation Available
+                </p>
+
+              </div>
+
+              {/* ================= WARRANTY + TIME ================= */}
+
+              <div className="mt-4 space-y-2">
+
+                <div className="inline-flex rounded-lg bg-blue-500/10 px-3 py-1.5">
+                  <p className="text-xs font-semibold text-blue-400">
+                    🛡 {glass.warranty}
+                  </p>
+                </div>
+
+                <p className="text-xs font-medium text-gray-400">
                   ⏱ Installation: {glass.installation_time}
                 </p>
+
               </div>
 
-              {/* PRICE */}
-              <div className="mt-6 border-t border-gray-700 pt-5">
+              {/* ================= PRICE ================= */}
+
+              <div className="mt-5 border-t border-gray-700 pt-5">
 
                 {glass.mrp > glass.price && (
                   <p className="text-sm text-gray-500 line-through">
@@ -101,16 +155,22 @@ export default function WindshieldSection({
                   </p>
                 )}
 
-                <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-gray-500">
+                <p className="mt-2 text-[10px] font-bold uppercase tracking-[2px] text-gray-500">
                   VoltShine Price
                 </p>
 
-                <p className="text-4xl font-extrabold text-green-400">
+                <p className="mt-0.5 text-4xl font-extrabold text-green-400">
                   ₹{glass.price.toLocaleString("en-IN")}
                 </p>
+
+                <p className="mt-1 text-xs font-semibold text-green-400">
+                  ✓ Professional installation included
+                </p>
+
               </div>
 
-              {/* CTA */}
+              {/* ================= CTA ================= */}
+
               <button
                 onClick={() =>
                   openWhatsApp(
@@ -146,7 +206,20 @@ Please confirm:
 Thank You.`
                   )
                 }
-                className="mt-6 w-full rounded-xl bg-yellow-400 py-3 font-bold text-black transition hover:bg-yellow-300"
+                className="
+                  mt-6
+                  h-12
+                  w-full
+                  rounded-xl
+                  bg-yellow-400
+                  px-4
+                  text-sm
+                  font-extrabold
+                  text-black
+                  transition
+                  active:scale-[0.98]
+                  hover:bg-yellow-300
+                "
               >
                 Get Best Quote →
               </button>
@@ -156,6 +229,7 @@ Thank You.`
         })}
 
       </div>
+
     </div>
   );
 }

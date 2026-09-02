@@ -84,3 +84,21 @@ h6 {
     transform: translateX(-50%);
   }
 }
+/* VoltShine Brand Slider */
+.brand-slider {
+  animation: brandScroll 22s linear infinite;
+}
+
+.brand-slider:hover {
+  animation-play-state: paused;
+}
+
+@keyframes brandScroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}

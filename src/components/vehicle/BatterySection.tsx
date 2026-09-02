@@ -49,46 +49,73 @@ export default function BatterySection({
   return (
     <div id="all-batteries">
 
-      {/* SECTION TITLE */}
-      <h3 className="mb-6 text-3xl font-bold text-yellow-400">
-        Compatible Batteries
-      </h3>
+      {/* ================= TITLE ================= */}
 
-      {/* BATTERY GRID */}
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div className="mb-6">
+        <p className="text-[10px] font-bold uppercase tracking-[3px] text-yellow-400">
+          BATTERY OPTIONS
+        </p>
+
+        <h3 className="mt-2 text-[28px] font-extrabold leading-tight text-white sm:text-3xl">
+          Compatible Batteries
+        </h3>
+
+        <p className="mt-2 text-sm text-gray-400">
+          Genuine batteries with doorstep installation.
+        </p>
+      </div>
+
+      {/* ================= BATTERY GRID ================= */}
+
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
 
         {sortedBatteries.map((battery, index) => (
-
           <div
             key={`${battery.battery_brand}-${battery.ah}-${battery.dp}-${index}`}
-            className="flex flex-col rounded-3xl border border-yellow-400/20 bg-[#1c1c1c] p-6 transition duration-300 hover:-translate-y-1 hover:border-yellow-400/50"
+            className="
+              flex
+              flex-col
+              rounded-2xl
+              border
+              border-yellow-400/20
+              bg-[#1c1c1c]
+              p-5
+              transition
+              hover:-translate-y-1
+              hover:border-yellow-400/50
+            "
           >
 
             {/* ================= HEADER ================= */}
 
             <div className="flex items-start justify-between gap-3">
 
-              <div>
+              <div className="min-w-0">
 
-                <div className="flex items-center gap-2">
+                <div className="flex flex-wrap items-center gap-2">
 
-                  <h4 className="text-2xl font-bold text-yellow-400">
+                  <h4 className="text-xl font-extrabold text-yellow-400">
                     {battery.battery_brand}
                   </h4>
 
                   {battery.battery_brand?.toLowerCase() === "exide" && (
-                    <span className="rounded-full bg-green-500 px-2 py-1 text-xs font-bold text-white">
+                    <span className="rounded-full bg-green-500/10 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-green-400">
                       Recommended
                     </span>
                   )}
 
                 </div>
 
+                <p className="mt-1 text-xs text-gray-500">
+                  Genuine Battery
+                </p>
+
               </div>
 
               {/* AH */}
-              <div className="rounded-full bg-yellow-400 px-4 py-2">
-                <span className="font-bold text-black">
+
+              <div className="shrink-0 rounded-full bg-yellow-400 px-3.5 py-1.5">
+                <span className="text-sm font-extrabold text-black">
                   {battery.ah} AH
                 </span>
               </div>
@@ -97,22 +124,26 @@ export default function BatterySection({
 
             {/* ================= FEATURES ================= */}
 
-            <div className="mt-5 space-y-2 text-sm text-gray-300">
+            <div className="mt-5 space-y-2.5 text-sm text-gray-300">
 
-              <p>
-                ✓ Compatible with selected vehicle
+              <p className="flex gap-2">
+                <span className="text-green-400">✓</span>
+                Compatible with selected vehicle
               </p>
 
-              <p>
-                ✓ Manufacturer Warranty: {battery.warranty}
+              <p className="flex gap-2">
+                <span className="text-green-400">✓</span>
+                Manufacturer Warranty: {battery.warranty}
               </p>
 
-              <p>
-                ✓ Free Doorstep Installation
+              <p className="flex gap-2">
+                <span className="text-green-400">✓</span>
+                Free Doorstep Installation
               </p>
 
-              <p>
-                ✓ Old Battery Exchange Available
+              <p className="flex gap-2">
+                <span className="text-green-400">✓</span>
+                Old Battery Exchange Available
               </p>
 
             </div>
@@ -121,7 +152,6 @@ export default function BatterySection({
 
             <div className="mt-6 border-t border-gray-700 pt-5">
 
-              {/* MRP + SAVINGS */}
               {battery.mrp > battery.dp && (
                 <div className="flex flex-wrap items-center gap-2">
 
@@ -129,39 +159,40 @@ export default function BatterySection({
                     MRP ₹{battery.mrp.toLocaleString("en-IN")}
                   </p>
 
-                  <span className="rounded-full bg-green-500/10 px-2 py-1 text-xs font-bold text-green-400">
-                    SAVE ₹
+                  <span className="rounded-full bg-green-500/10 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-green-400">
+                    Save ₹
                     {(battery.mrp - battery.dp).toLocaleString("en-IN")}
                   </span>
 
                 </div>
               )}
 
-              {/* VOLTSHINE PRICE */}
-              <p className="mt-2 text-xs font-semibold uppercase tracking-wider text-gray-500">
+              <p className="mt-3 text-[10px] font-bold uppercase tracking-[2px] text-gray-500">
                 VoltShine Price
               </p>
 
-              <p className="text-4xl font-extrabold text-green-400">
+              <p className="mt-0.5 text-4xl font-extrabold text-green-400">
                 ₹{battery.dp.toLocaleString("en-IN")}
               </p>
 
-              <p className="mt-1 text-sm font-medium text-green-400">
+              <p className="mt-1 text-xs font-semibold text-green-400">
                 ✓ Inclusive of doorstep installation
               </p>
 
-              {/* WARRANTY */}
-              <p className="mt-2 text-sm font-medium text-blue-400">
-                🛡 {battery.warranty}
-              </p>
+              <div className="mt-3 inline-flex rounded-lg bg-blue-500/10 px-3 py-1.5">
+                <p className="text-xs font-semibold text-blue-400">
+                  🛡 {battery.warranty}
+                </p>
+              </div>
 
             </div>
 
             {/* ================= BUTTONS ================= */}
 
-            <div className="mt-6 flex gap-3">
+            <div className="mt-6 grid grid-cols-2 gap-3">
 
               {/* CHECK AVAILABILITY */}
+
               <button
                 onClick={() =>
                   openWhatsApp(
@@ -194,12 +225,28 @@ Please confirm:
 Thank You.`
                   )
                 }
-                className="flex-1 rounded-xl bg-yellow-400 py-3 font-bold text-black transition hover:bg-yellow-300"
+                className="
+                  min-h-12
+                  rounded-xl
+                  bg-yellow-400
+                  px-3
+                  py-3
+                  text-xs
+                  font-extrabold
+                  leading-4
+                  text-black
+                  transition
+                  active:scale-[0.98]
+                  hover:bg-yellow-300
+                "
               >
-                Check Availability
+                Check
+                <br />
+                Availability
               </button>
 
               {/* WHATSAPP */}
+
               <button
                 onClick={() =>
                   openWhatsApp(
@@ -231,28 +278,59 @@ Please contact me to confirm my booking.
 Thank You.`
                   )
                 }
-                className="flex-1 rounded-xl border border-green-500 py-3 font-bold text-green-400 transition hover:bg-green-500 hover:text-white"
+                className="
+                  min-h-12
+                  rounded-xl
+                  border
+                  border-green-500
+                  px-3
+                  py-3
+                  text-xs
+                  font-extrabold
+                  leading-4
+                  text-green-400
+                  transition
+                  active:scale-[0.98]
+                  hover:bg-green-500
+                  hover:text-white
+                "
               >
+                💬
+                <br />
                 WhatsApp
               </button>
 
             </div>
 
           </div>
-
         ))}
 
       </div>
 
       {/* ================= OTHER BATTERY CTA ================= */}
 
-      <div className="mt-8 rounded-3xl border border-yellow-400 bg-[#1c1c1c] p-8 text-center">
+      <div
+        className="
+          mt-6
+          rounded-2xl
+          border
+          border-yellow-400/50
+          bg-[#1c1c1c]
+          p-6
+          text-center
+          sm:p-8
+        "
+      >
 
-        <h3 className="text-2xl font-bold text-white">
-          ⭐ Looking for Another Battery?
+        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-yellow-400/10 text-xl">
+          ⭐
+        </div>
+
+        <h3 className="mt-4 text-xl font-extrabold text-white sm:text-2xl">
+          Looking for Another Battery?
         </h3>
 
-        <p className="mt-3 text-gray-400">
+        <p className="mt-2 text-sm text-gray-400">
           Can't find the battery you're looking for?
         </p>
 
@@ -271,9 +349,24 @@ Fuel: ${fuel}
 Please share your best price.`
             )
           }
-          className="mt-6 rounded-xl bg-yellow-400 px-8 py-3 font-bold text-black transition hover:bg-yellow-300"
+          className="
+            mt-5
+            w-full
+            rounded-xl
+            bg-yellow-400
+            px-6
+            py-3.5
+            text-sm
+            font-extrabold
+            text-black
+            transition
+            active:scale-[0.98]
+            hover:bg-yellow-300
+            sm:w-auto
+            sm:px-8
+          "
         >
-          Request Best Price
+          Request Best Price →
         </button>
 
       </div>

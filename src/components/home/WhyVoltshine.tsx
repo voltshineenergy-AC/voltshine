@@ -30,45 +30,107 @@ const features = [
 
 export default function WhyVoltshine() {
   return (
-    <section className="bg-[#090909] pt-20 pb-24 md:pt-24">
-      <div className="mx-auto max-w-7xl px-6">
+    <section className="bg-[#090909] px-4 py-14 sm:px-6 sm:py-20 md:py-24">
+      <div className="mx-auto max-w-7xl">
+
+        {/* ================= HEADER ================= */}
 
         <div className="text-center">
-          <p className="text-sm font-semibold uppercase tracking-[6px] text-yellow-400">
+
+          <p className="text-[10px] font-bold uppercase tracking-[3px] text-yellow-400 sm:text-xs sm:tracking-[5px]">
             WHY VOLTSHINE
           </p>
 
-          <h2 className="mt-4 text-5xl font-bold text-white">
-            Why Choose VoltShine?
+          <h2 className="mt-3 text-[30px] font-extrabold leading-tight text-white sm:text-4xl md:text-5xl">
+            Why Choose
+            <br className="sm:hidden" /> VoltShine?
           </h2>
 
-          <p className="mx-auto mt-4 max-w-2xl text-lg text-gray-400">
+          <p className="mx-auto mt-3 max-w-2xl text-sm leading-5 text-gray-400 sm:text-lg sm:leading-7">
             Reliable products, professional installation and fast
             doorstep service across Pune & PCMC.
           </p>
+
         </div>
 
-        <div className="mt-16 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+        {/* ================= FEATURES ================= */}
+
+        <div className="mt-8 grid grid-cols-1 gap-4 sm:mt-12 sm:grid-cols-2 xl:grid-cols-4">
+
           {features.map((item) => {
             const Icon = item.icon;
 
             return (
               <div
                 key={item.title}
-                className="rounded-3xl border border-white/10 bg-white/5 p-8 transition duration-300 hover:-translate-y-2 hover:border-yellow-400"
+                className="
+                  rounded-2xl
+                  border
+                  border-white/10
+                  bg-[#151515]
+                  p-5
+                  transition
+                  duration-300
+                  hover:-translate-y-1
+                  hover:border-yellow-400/50
+                "
               >
-                <Icon className="h-10 w-10 text-yellow-400" />
 
-                <h3 className="mt-6 text-2xl font-semibold text-white">
+                {/* ICON */}
+
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-yellow-400/10">
+                  <Icon className="h-6 w-6 text-yellow-400" />
+                </div>
+
+                {/* TITLE */}
+
+                <h3 className="mt-5 text-xl font-extrabold leading-tight text-white">
                   {item.title}
                 </h3>
 
-                <p className="mt-3 text-gray-400">
+                {/* DESCRIPTION */}
+
+                <p className="mt-2 text-sm leading-5 text-gray-400">
                   {item.desc}
                 </p>
+
               </div>
             );
           })}
+
+        </div>
+
+        {/* ================= TRUST STRIP ================= */}
+
+        <div className="mt-6 grid grid-cols-3 overflow-hidden rounded-2xl border border-yellow-400/10 bg-[#111111]">
+
+          <div className="border-r border-white/10 px-2 py-4 text-center">
+            <p className="text-lg font-extrabold text-yellow-400 sm:text-2xl">
+              100%
+            </p>
+            <p className="mt-1 text-[9px] font-semibold uppercase tracking-wide text-gray-500 sm:text-xs">
+              Genuine
+            </p>
+          </div>
+
+          <div className="border-r border-white/10 px-2 py-4 text-center">
+            <p className="text-lg font-extrabold text-yellow-400 sm:text-2xl">
+              Fast
+            </p>
+            <p className="mt-1 text-[9px] font-semibold uppercase tracking-wide text-gray-500 sm:text-xs">
+              Doorstep
+            </p>
+          </div>
+
+          <div className="px-2 py-4 text-center">
+            <p className="text-lg font-extrabold text-yellow-400 sm:text-2xl">
+              Pune
+            </p>
+            <p className="mt-1 text-[9px] font-semibold uppercase tracking-wide text-gray-500 sm:text-xs">
+              & PCMC
+            </p>
+          </div>
+
         </div>
 
       </div>

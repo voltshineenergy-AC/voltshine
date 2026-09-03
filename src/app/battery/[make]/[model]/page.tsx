@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 import BatterySection from "@/components/vehicle/BatterySection";
+import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 
 type Props = {
   params: Promise<{
@@ -45,13 +46,24 @@ export async function generateMetadata({
   const formattedMake = formatText(make);
   const formattedModel = formatText(model);
 
+  const canonicalUrl = `https://voltshine.in/battery/${slugify(
+    formattedMake
+  )}/${slugify(formattedModel)}`;
+
   return {
     title: `${formattedMake} ${formattedModel} Battery Replacement in Pune | VoltShine`,
+
     description: `Find the right battery for ${formattedMake} ${formattedModel}. Get genuine car battery replacement, doorstep installation, warranty and old battery exchange across Pune & PCMC.`,
+
     alternates: {
-      canonical: `https://voltshine.in/battery/${slugify(
-        formattedMake
-      )}/${slugify(formattedModel)}`,
+      canonical: canonicalUrl,
+    },
+
+    openGraph: {
+      title: `${formattedMake} ${formattedModel} Battery Replacement in Pune | VoltShine`,
+      description: `Genuine battery replacement for ${formattedMake} ${formattedModel} with doorstep installation across Pune & PCMC.`,
+      url: canonicalUrl,
+      type: "website",
     },
   };
 }
@@ -115,8 +127,27 @@ export default async function BatteryPage({
     formattedMake
   )}/${slugify(formattedModel)}`;
 
+  const canonicalUrl = `https://voltshine.in${vehiclePath}`;
+
   return (
     <main className="min-h-screen bg-black text-white">
+      {/* BREADCRUMB SCHEMA */}
+      <BreadcrumbSchema
+        items={[
+          {
+            name: "Home",
+            url: "https://voltshine.in",
+          },
+          {
+            name: "Car Batteries",
+            url: "https://voltshine.in/battery",
+          },
+          {
+            name: `${formattedMake} ${formattedModel}`,
+            url: canonicalUrl,
+          },
+        ]}
+      />
 
       {/* HERO */}
       <section className="bg-[#090909] px-4 pb-10 pt-24 sm:px-6 sm:pb-14 sm:pt-28">
@@ -148,9 +179,7 @@ export default async function BatteryPage({
             exchange across Pune & PCMC.
           </p>
 
-          {/* QUICK ACTIONS */}
           <div className="mt-7 grid max-w-lg grid-cols-1 gap-3 sm:flex sm:max-w-none sm:flex-wrap">
-
             <a
               href="https://wa.me/919270300889?text=Hello%20VoltShine%20%F0%9F%91%8B%0A%0AI%20need%20a%20battery%20for%20my%20car.%0A%0APlease%20help%20me%20find%20the%20right%20battery."
               target="_blank"
@@ -166,13 +195,10 @@ export default async function BatteryPage({
             >
               📞 Call VoltShine
             </a>
-
           </div>
 
-          {/* SELECTED VEHICLE */}
           {selectedYear && selectedFuel && (
             <div className="mt-7 flex flex-wrap gap-2">
-
               <span className="rounded-full border border-yellow-400/20 bg-yellow-400/5 px-3 py-2 text-xs font-semibold text-gray-300">
                 🚗 {formattedMake} {formattedModel}
               </span>
@@ -184,17 +210,14 @@ export default async function BatteryPage({
               <span className="rounded-full border border-white/10 bg-white/5 px-3 py-2 text-xs font-semibold text-gray-300">
                 ⛽ {selectedFuel}
               </span>
-
             </div>
           )}
-
         </div>
       </section>
 
       {/* VEHICLE FILTER */}
       <section className="bg-black px-4 py-8 sm:px-6 sm:py-12">
         <div className="mx-auto max-w-7xl">
-
           <div className="rounded-3xl border border-yellow-400/20 bg-[#151515] p-5 sm:p-7">
 
             <div className="mb-6">
@@ -216,8 +239,6 @@ export default async function BatteryPage({
               method="GET"
               className="grid grid-cols-1 gap-4 md:grid-cols-3"
             >
-
-              {/* YEAR */}
               <div>
                 <label
                   htmlFor="year"
@@ -239,17 +260,13 @@ export default async function BatteryPage({
                     { length: 2026 - 2000 + 1 },
                     (_, index) => 2000 + index
                   ).map((vehicleYear) => (
-                    <option
-                      key={vehicleYear}
-                      value={vehicleYear}
-                    >
+                    <option key={vehicleYear} value={vehicleYear}>
                       {vehicleYear}
                     </option>
                   ))}
                 </select>
               </div>
 
-              {/* FUEL */}
               <div>
                 <label
                   htmlFor="fuel"
@@ -272,7 +289,6 @@ export default async function BatteryPage({
                 </select>
               </div>
 
-              {/* BUTTON */}
               <div className="flex items-end">
                 <button
                   type="submit"
@@ -281,11 +297,8 @@ export default async function BatteryPage({
                   Find Compatible Batteries →
                 </button>
               </div>
-
             </form>
-
           </div>
-
         </div>
       </section>
 
@@ -294,7 +307,6 @@ export default async function BatteryPage({
         <div className="mx-auto max-w-7xl">
 
           {batteries && batteries.length > 0 ? (
-
             <BatterySection
               batteries={batteries}
               make={formattedMake}
@@ -302,9 +314,7 @@ export default async function BatteryPage({
               year={selectedYear ? String(selectedYear) : ""}
               fuel={selectedFuel || ""}
             />
-
           ) : (
-
             <div className="rounded-3xl border border-white/10 bg-[#151515] p-6 text-center sm:p-10">
 
               <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-yellow-400/10 text-2xl">
@@ -342,11 +352,8 @@ Thank You.`
               >
                 💬 Ask VoltShine
               </a>
-
             </div>
-
           )}
-
         </div>
       </section>
 
@@ -397,7 +404,6 @@ Thank You.`
             </div>
 
           </div>
-
         </div>
       </section>
 
@@ -439,9 +445,7 @@ Thank You.`
               </a>
 
             </div>
-
           </div>
-
         </div>
       </section>
 
@@ -467,7 +471,6 @@ Thank You.`
             </p>
 
             <div className="mt-6 flex flex-wrap gap-2">
-
               {[
                 "Wakad",
                 "Baner",
@@ -485,7 +488,6 @@ Thank You.`
                   {area}
                 </span>
               ))}
-
             </div>
 
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
@@ -517,10 +519,8 @@ Thank You.`
             </div>
 
           </div>
-
         </div>
       </section>
-
     </main>
   );
 }

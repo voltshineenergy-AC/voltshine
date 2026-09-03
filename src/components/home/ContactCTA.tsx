@@ -14,56 +14,63 @@ Thank You.`
   );
 
   return (
-    <section className="bg-gradient-to-r from-yellow-400 to-yellow-500 py-20">
-      <div className="mx-auto max-w-5xl px-6 text-center">
+    <section className="bg-[#090909] px-4 py-8 sm:px-6 sm:py-12">
+      <div className="mx-auto max-w-6xl">
 
-        {/* LABEL */}
-        <p className="text-sm font-bold uppercase tracking-[4px] text-black/70">
-          NEED HELP RIGHT NOW?
-        </p>
+        {/* MAIN CTA CARD */}
+        <div className="overflow-hidden rounded-3xl border border-yellow-400/20 bg-gradient-to-br from-yellow-400 via-yellow-400 to-yellow-500 px-5 py-10 text-center shadow-[0_20px_60px_rgba(0,0,0,0.35)] sm:px-8 sm:py-14 md:px-12 md:py-16">
 
-        {/* HEADING */}
-        <h2 className="mt-3 text-4xl font-extrabold text-black md:text-5xl">
-          Car Won't Start?
-        </h2>
+          {/* LABEL */}
+          <div className="mx-auto inline-flex items-center rounded-full bg-black/10 px-4 py-2">
+            <p className="text-[10px] font-extrabold uppercase tracking-[3px] text-black/75 sm:text-xs sm:tracking-[4px]">
+              NEED HELP RIGHT NOW?
+            </p>
+          </div>
 
-        {/* DESCRIPTION */}
-        <p className="mx-auto mt-5 max-w-2xl text-lg leading-7 text-black/80">
-          Don't get stranded. Get quick assistance for Battery Replacement,
-          Jumpstart and other emergency car care services across Pune & PCMC.
-        </p>
+          {/* HEADING */}
+          <h2 className="mt-4 text-[32px] font-extrabold leading-[1.05] tracking-tight text-black sm:text-4xl md:text-5xl">
+            Car Won&apos;t Start?
+          </h2>
 
-        {/* BUTTONS */}
-        <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:justify-center">
+          {/* DESCRIPTION */}
+          <p className="mx-auto mt-4 max-w-2xl text-sm leading-6 text-black/75 sm:mt-5 sm:text-base sm:leading-7 md:text-lg">
+            Don&apos;t get stranded. Get quick assistance for Battery
+            Replacement, Jumpstart and other emergency car care services
+            across Pune &amp; PCMC.
+          </p>
 
-          {/* CALL */}
-          <a
-            href="tel:+919270300889"
-            className="rounded-xl bg-black px-8 py-4 font-bold text-white transition hover:bg-black/80"
-          >
-            🚗 Call for Assistance
-          </a>
+          {/* BUTTONS */}
+          <div className="mx-auto mt-7 grid max-w-lg grid-cols-1 gap-3 sm:mt-8 sm:flex sm:max-w-none sm:justify-center sm:gap-4">
 
-          {/* WHATSAPP */}
-          <a
-            href={`https://wa.me/${whatsappNumber}?text=${emergencyMessage}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-xl border-2 border-black px-8 py-4 font-bold text-black transition hover:bg-black hover:text-white"
-          >
-            💬 WhatsApp Now
-          </a>
+            {/* CALL */}
+            <a
+              href="tel:+919270300889"
+              className="flex min-h-12 items-center justify-center rounded-xl bg-black px-7 py-3.5 text-sm font-extrabold text-white shadow-lg transition duration-200 active:scale-[0.98] hover:bg-black/85 sm:px-8 sm:text-base"
+            >
+              🚗 Call for Assistance
+            </a>
+
+            {/* WHATSAPP */}
+            <a
+              href={`https://wa.me/${whatsappNumber}?text=${emergencyMessage}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex min-h-12 items-center justify-center rounded-xl border-2 border-black bg-transparent px-7 py-3.5 text-sm font-extrabold text-black transition duration-200 active:scale-[0.98] hover:bg-black hover:text-white sm:px-8 sm:text-base"
+            >
+              💬 WhatsApp Now
+            </a>
+
+          </div>
+
+          {/* SERVICE POINTS */}
+          <div className="mx-auto mt-8 grid max-w-lg grid-cols-2 gap-x-4 gap-y-3 border-t border-black/10 pt-6 text-xs font-bold text-black/70 sm:mt-10 sm:flex sm:max-w-none sm:flex-wrap sm:justify-center sm:gap-x-8 sm:gap-y-3 sm:border-t-0 sm:pt-0 sm:text-sm">
+            <span>✓ Battery Assistance</span>
+            <span>✓ Jumpstart</span>
+            <span>✓ Doorstep Service</span>
+            <span>✓ Pune &amp; PCMC</span>
+          </div>
 
         </div>
-
-        {/* SERVICE POINTS */}
-        <div className="mt-10 flex flex-wrap justify-center gap-x-8 gap-y-3 text-sm font-semibold text-black/70">
-          <span>✓ Battery Assistance</span>
-          <span>✓ Jumpstart</span>
-          <span>✓ Doorstep Service</span>
-          <span>✓ Pune & PCMC</span>
-        </div>
-
       </div>
     </section>
   );

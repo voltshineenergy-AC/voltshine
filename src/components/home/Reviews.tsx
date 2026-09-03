@@ -1,123 +1,153 @@
+const reviews = [
+  {
+    name: "Amit Patil",
+    location: "Wakad",
+    review:
+      "Battery replaced within 30 minutes. Excellent service and genuine product.",
+  },
+  {
+    name: "Sneha Kulkarni",
+    location: "Baner",
+    review:
+      "Car detailing quality exceeded my expectations. Highly recommended.",
+  },
+  {
+    name: "Rahul Jadhav",
+    location: "Kharadi",
+    review:
+      "Windshield replacement was quick and professional. Great experience.",
+  },
+];
+
+const stats = [
+  {
+    value: "5000+",
+    label: "Happy Customers",
+  },
+  {
+    value: "12000+",
+    label: "Batteries Installed",
+  },
+  {
+    value: "4.9★",
+    label: "Customer Rating",
+  },
+  {
+    value: "30 Min",
+    label: "Avg. Response",
+  },
+];
+
+// Replace this with your actual Google Business Profile review URL.
+const googleReviewsUrl = "https://share.google/BGkd70pCKdd5phZu5";
+
 export default function Reviews() {
-  const reviews = [
-    {
-      name: "Amit Patil",
-      location: "Wakad",
-      review:
-        "Battery replaced within 30 minutes. Excellent service and genuine product.",
-    },
-    {
-      name: "Sneha Kulkarni",
-      location: "Baner",
-      review:
-        "Car detailing quality exceeded my expectations. Highly recommended.",
-    },
-    {
-      name: "Rahul Jadhav",
-      location: "Kharadi",
-      review:
-        "Windshield replacement was quick and professional. Great experience.",
-    },
-  ];
-
   return (
-    <section className="bg-black py-20">
-      <div className="mx-auto max-w-7xl px-6">
+    <section className="bg-black px-4 py-14 sm:px-6 sm:py-20">
+      <div className="mx-auto max-w-7xl">
 
-        <p className="mb-2 text-center text-yellow-400 tracking-[6px] uppercase">
-          Customer Reviews
-        </p>
+        {/* ================= HEADER ================= */}
 
-        <h2 className="text-center text-5xl font-bold text-white">
-          Trusted by Car Owners Across Pune
-        </h2>
+        <div className="text-center">
 
-        <p className="mx-auto mt-4 max-w-3xl text-center text-gray-400">
-          Real customer experiences that make VoltShine one of Pune's trusted
-          names for Battery Replacement, Windshield and Car Detailing.
-        </p>
+          <p className="text-[10px] font-bold uppercase tracking-[3px] text-yellow-400 sm:text-xs sm:tracking-[5px]">
+            CUSTOMER REVIEWS
+          </p>
 
-        {/* Stats */}
+          <h2 className="mt-3 text-[30px] font-extrabold leading-tight text-white sm:text-4xl md:text-5xl">
+            Trusted by Car Owners
+            <br className="sm:hidden" /> Across Pune
+          </h2>
 
-        <div className="mt-12 grid gap-6 md:grid-cols-4">
-
-          <div className="rounded-3xl border border-yellow-500/20 bg-[#161616] p-8 text-center">
-            <h3 className="text-5xl font-bold text-yellow-400">5000+</h3>
-            <p className="mt-2 text-gray-400">
-              Happy Customers
-            </p>
-          </div>
-
-          <div className="rounded-3xl border border-yellow-500/20 bg-[#161616] p-8 text-center">
-            <h3 className="text-5xl font-bold text-yellow-400">12000+</h3>
-            <p className="mt-2 text-gray-400">
-              Batteries Installed
-            </p>
-          </div>
-
-          <div className="rounded-3xl border border-yellow-500/20 bg-[#161616] p-8 text-center">
-            <h3 className="text-5xl font-bold text-yellow-400">4.9★</h3>
-            <p className="mt-2 text-gray-400">
-              Customer Rating
-            </p>
-          </div>
-
-          <div className="rounded-3xl border border-yellow-500/20 bg-[#161616] p-8 text-center">
-            <h3 className="text-5xl font-bold text-yellow-400">30 Min</h3>
-            <p className="mt-2 text-gray-400">
-              Avg. Response
-            </p>
-          </div>
+          <p className="mx-auto mt-3 max-w-3xl text-sm leading-5 text-gray-400 sm:text-base sm:leading-7">
+            Real customer experiences that make VoltShine a trusted choice
+            for battery replacement, windshield replacement and car detailing.
+          </p>
 
         </div>
 
-        {/* Reviews */}
+        {/* ================= STATS ================= */}
 
-        <div className="mt-16 grid gap-8 md:grid-cols-3">
+        <div className="mt-8 grid grid-cols-2 gap-3 sm:mt-12 sm:gap-5 lg:grid-cols-4">
 
-          {reviews.map((item, index) => (
-
+          {stats.map((stat) => (
             <div
-              key={index}
-              className="rounded-3xl border border-yellow-500/20 bg-[#1a1a1a] p-8"
+              key={stat.label}
+              className="rounded-2xl border border-yellow-500/20 bg-[#161616] px-3 py-5 text-center sm:rounded-3xl sm:p-7"
+            >
+              <h3 className="text-2xl font-extrabold text-yellow-400 sm:text-4xl md:text-5xl">
+                {stat.value}
+              </h3>
+
+              <p className="mt-1.5 text-[11px] leading-4 text-gray-400 sm:mt-2 sm:text-sm">
+                {stat.label}
+              </p>
+            </div>
+          ))}
+
+        </div>
+
+        {/* ================= REVIEWS ================= */}
+
+        <div className="mt-8 grid gap-4 sm:mt-12 md:grid-cols-3 sm:gap-6">
+
+          {reviews.map((item) => (
+            <div
+              key={`${item.name}-${item.location}`}
+              className="flex flex-col rounded-2xl border border-white/10 bg-[#1a1a1a] p-5 transition duration-300 hover:-translate-y-1 hover:border-yellow-400/40 sm:rounded-3xl sm:p-7"
             >
 
-              <div className="text-yellow-400 text-xl">
-                ⭐⭐⭐⭐⭐
+              {/* STARS */}
+
+              <div
+                className="text-base tracking-[2px] text-yellow-400 sm:text-lg"
+                aria-label="5 out of 5 stars"
+              >
+                ★★★★★
               </div>
 
-              <p className="mt-6 text-gray-300 leading-8">
+              {/* REVIEW */}
+
+              <p className="mt-4 text-sm leading-6 text-gray-300 sm:mt-5 sm:text-base sm:leading-7">
                 "{item.review}"
               </p>
 
-              <div className="mt-8">
+              {/* CUSTOMER */}
 
-                <h4 className="font-bold text-white">
+              <div className="mt-auto pt-6">
+
+                <div className="h-px bg-white/10" />
+
+                <h4 className="mt-4 text-sm font-extrabold text-white sm:text-base">
                   {item.name}
                 </h4>
 
-                <p className="text-gray-500">
-                  {item.location}
+                <p className="mt-1 text-xs text-gray-500">
+                  {item.location}, Pune
                 </p>
 
               </div>
 
             </div>
-
           ))}
 
         </div>
 
-        {/* CTA */}
+        {/* ================= GOOGLE CTA ================= */}
 
-        <div className="mt-16 text-center">
+        <div className="mt-8 text-center sm:mt-12">
+
+          <p className="mb-4 text-sm text-gray-400">
+            See more customer experiences on Google
+          </p>
 
           <a
-            href="https://g.page/r/xxxxxxxx"
+            href={googleReviewsUrl}
             target="_blank"
-            className="rounded-xl bg-yellow-400 px-10 py-4 font-bold text-black"
+            rel="noopener noreferrer"
+            className="inline-flex min-h-12 items-center justify-center rounded-xl bg-yellow-400 px-7 py-3 text-sm font-extrabold text-black transition active:scale-[0.98] hover:bg-yellow-300 sm:px-9"
           >
-            View Google Reviews
+            View Google Reviews →
           </a>
 
         </div>

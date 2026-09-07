@@ -13,7 +13,9 @@ function slugify(value: string) {
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://voltshine.in";
 
-  // STATIC PAGES
+  /*
+   * STATIC SEO PAGES
+   */
   const staticPages: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
@@ -27,6 +29,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     {
       url: `${baseUrl}/detailing`,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/windshield`,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/pune`,
       changeFrequency: "weekly",
       priority: 0.9,
     },
@@ -52,7 +64,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
-  // GET BATTERY VEHICLE DATA
+  /*
+   * DYNAMIC BATTERY VEHICLE PAGES
+   *
+   * Example:
+   * /battery/maruti/swift
+   * /battery/hyundai/creta
+   * /battery/tata/nexon
+   */
   const { data, error } = await supabase
     .from("battery_master")
     .select("make, model");
@@ -63,7 +82,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     return staticPages;
   }
 
-  // REMOVE DUPLICATE MAKE + MODEL
+  /*
+   * Remove duplicate Make + Model combinations
+   */
   const uniqueVehicles = new Map<
     string,
     {
@@ -72,8 +93,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   >();
 
-  for (const vehicle of data || []) {
-    if (!vehicle.make || !vehicle.model) continue;
+  for (const vehicle of data ?? []) {
+    if (!vehicle.make || !vehicle.model) {
+      continue;
+    }
 
     const make = String(vehicle.make).trim();
     const model = String(vehicle.model).trim();
@@ -81,7 +104,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const makeSlug = slugify(make);
     const modelSlug = slugify(model);
 
-    if (!makeSlug || !modelSlug) continue;
+    if (!makeSlug || !modelSlug) {
+      continue;
+    }
 
     const key = `${makeSlug}/${modelSlug}`;
 
@@ -93,15 +118,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   }
 
-  // CREATE DYNAMIC BATTERY URLS
+  /*
+   * CREATE BATTERY URLS
+   */
   const batteryPages: MetadataRoute.Sitemap = Array.from(
     uniqueVehicles.values()
   ).map((vehicle) => ({
     url: `${baseUrl}/battery/${vehicle.make}/${vehicle.model}`,
-    lastModified: new Date(),
     changeFrequency: "monthly",
     priority: 0.8,
   }));
 
+  /*
+   * FINAL SITEMAP
+   */
   return [...staticPages, ...batteryPages];
 }

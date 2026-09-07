@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins, Inter } from "next/font/google";
 import "./globals.css";
+import LocalBusinessSchema from "@/components/seo/LocalBusinessSchema";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -101,6 +102,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${poppins.variable} ${inter.variable}`}>
+        <LocalBusinessSchema />
         {children}
       </body>
     </html>

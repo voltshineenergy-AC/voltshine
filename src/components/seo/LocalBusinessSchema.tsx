@@ -3,19 +3,12 @@ export default function LocalBusinessSchema() {
     "@context": "https://schema.org",
     "@type": "AutoRepair",
     "@id": "https://voltshine.in/#business",
-
     name: "VoltShine Energy & Auto Care",
     url: "https://voltshine.in",
-    telephone: "+91-9270300889",
-
-    logo: "https://voltshine.in/logo/voltshine-logo.png",
-    image: "https://voltshine.in/images/hero-car.png",
-
+    telephone: "+919270300889",
+    email: "voltshineenergy@gmail.com",
     description:
       "VoltShine Energy & Auto Care provides car battery replacement, emergency jumpstart, windshield replacement, premium car detailing, UPS, inverter and solar solutions across Pune and PCMC.",
-
-    priceRange: "₹₹",
-
     areaServed: [
       {
         "@type": "City",
@@ -25,12 +18,7 @@ export default function LocalBusinessSchema() {
         "@type": "City",
         name: "Pimpri-Chinchwad",
       },
-      {
-        "@type": "AdministrativeArea",
-        name: "Pune District",
-      },
     ],
-
     serviceType: [
       "Car Battery Replacement",
       "Emergency Jumpstart",
@@ -42,11 +30,10 @@ export default function LocalBusinessSchema() {
       "UPS & Inverter Solutions",
       "Solar Solutions",
     ],
-
-      sameAs: [
-  "https://www.facebook.com/profile.php?id=61574519214007",
-  "https://www.instagram.com/voltshine.pune/?hl=en",
-],
+    sameAs: [
+      "https://www.facebook.com/profile.php?id=61574519214007",
+      "https://www.instagram.com/voltshine.pune/",
+    ],
   };
 
   return (

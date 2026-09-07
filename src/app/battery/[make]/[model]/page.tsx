@@ -3,6 +3,8 @@ import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 import BatterySection from "@/components/vehicle/BatterySection";
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
+import VehicleFAQSchema from "@/components/seo/VehicleFAQSchema";
+import VehicleFAQ from "@/components/vehicle/VehicleFAQ";
 
 type Props = {
   params: Promise<{
@@ -131,6 +133,7 @@ export default async function BatteryPage({
 
   return (
     <main className="min-h-screen bg-black text-white">
+
       {/* BREADCRUMB SCHEMA */}
       <BreadcrumbSchema
         items={[
@@ -148,6 +151,11 @@ export default async function BatteryPage({
           },
         ]}
       />
+
+      <VehicleFAQSchema
+       make={formattedMake}
+       model={formattedModel}
+       />
 
       {/* HERO */}
       <section className="bg-[#090909] px-4 pb-10 pt-24 sm:px-6 sm:pb-14 sm:pt-28">
@@ -449,8 +457,14 @@ Thank You.`
         </div>
       </section>
 
-      {/* SERVICE AREA */}
-      <section className="bg-black px-4 py-10 sm:px-6 sm:py-14">
+         {/* VEHICLE FAQ */}
+<VehicleFAQ
+  make={formattedMake}
+  model={formattedModel}
+/>
+
+{/* SERVICE AREA */}
+<section className="bg-black px-4 py-10 sm:px-6 sm:py-14">
         <div className="mx-auto max-w-6xl">
 
           <div className="rounded-3xl border border-white/10 bg-[#151515] p-6 sm:p-9">

@@ -58,6 +58,28 @@ export default async function BatteryLandingPage() {
   return (
     <main className="min-h-screen bg-black text-white">
 
+      <BreadcrumbSchema
+  items={[
+    {
+      name: "Home",
+      url: "https://voltshine.in",
+    },
+    {
+      name: "Car Batteries",
+      url: "https://voltshine.in/battery",
+    },
+    {
+      name: `${formattedMake} ${formattedModel}`,
+      url: canonicalUrl,
+    },
+  ]}
+/>
+
+<VehicleFAQSchema
+  make={formattedMake}
+  model={formattedModel}
+/>
+
       {/* HERO */}
       <section className="bg-[#090909] px-4 pb-12 pt-24 sm:px-6 sm:pb-16 sm:pt-28">
         <div className="mx-auto max-w-7xl">

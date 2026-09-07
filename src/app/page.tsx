@@ -10,6 +10,7 @@ import ContactCTA from "@/components/home/ContactCTA";
 import ContactSection from "@/components/common/ContactSection";
 import Footer from "@/components/layout/Footer";
 import FloatingButtons from "@/components/common/FloatingButtons";
+import PuneSEOSection from "@/components/home/PuneSEOSection";
 
 export default function Home() {
   return (
@@ -20,6 +21,7 @@ export default function Home() {
       <WhyVoltshine />
       <BrandsSection />
       <FeaturedServices />
+      <PuneSEOSection />
       <Reviews />
       <FAQ />
       <ContactCTA />

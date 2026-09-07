@@ -58,28 +58,6 @@ export default async function BatteryLandingPage() {
   return (
     <main className="min-h-screen bg-black text-white">
 
-      <BreadcrumbSchema
-  items={[
-    {
-      name: "Home",
-      url: "https://voltshine.in",
-    },
-    {
-      name: "Car Batteries",
-      url: "https://voltshine.in/battery",
-    },
-    {
-      name: `${formattedMake} ${formattedModel}`,
-      url: canonicalUrl,
-    },
-  ]}
-/>
-
-<VehicleFAQSchema
-  make={formattedMake}
-  model={formattedModel}
-/>
-
       {/* HERO */}
       <section className="bg-[#090909] px-4 pb-12 pt-24 sm:px-6 sm:pb-16 sm:pt-28">
         <div className="mx-auto max-w-7xl">
@@ -392,3 +370,29 @@ export default async function BatteryLandingPage() {
     </main>
   );
 }
+{/* PUNE INTERNAL LINK */}
+<section className="bg-[#090909] px-4 py-10 sm:px-6 sm:py-14">
+  <div className="mx-auto max-w-5xl text-center">
+
+    <p className="text-[10px] font-bold uppercase tracking-[3px] text-yellow-400 sm:text-xs">
+      VOLTSHINE PUNE
+    </p>
+
+    <h2 className="mt-3 text-2xl font-extrabold text-white sm:text-3xl">
+      Looking for Car Battery Replacement in Pune?
+    </h2>
+
+    <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-gray-400 sm:text-base">
+      VoltShine provides genuine car batteries, doorstep battery replacement
+      and emergency battery assistance across Pune and PCMC.
+    </p>
+
+    <Link
+      href="/pune"
+      className="mt-6 inline-flex min-h-12 items-center justify-center rounded-xl bg-yellow-400 px-7 py-3 text-sm font-extrabold text-black transition active:scale-[0.98] hover:bg-yellow-300"
+    >
+      Car Battery Services in Pune →
+    </Link>
+
+  </div>
+</section>

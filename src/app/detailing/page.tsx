@@ -510,3 +510,58 @@ Thank You.`
     </main>
   );
 }
+{/* PUNE INTERNAL LINK */}
+<section className="bg-[#090909] px-4 py-10 sm:px-6 sm:py-14">
+  <div className="mx-auto max-w-5xl text-center">
+
+    <p className="text-[10px] font-bold uppercase tracking-[3px] text-yellow-400 sm:text-xs">
+      PREMIUM DETAILING IN PUNE
+    </p>
+
+    <h2 className="mt-3 text-2xl font-extrabold text-white sm:text-3xl">
+      Looking for Car Detailing in Pune?
+    </h2>
+
+    <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-gray-400 sm:text-base">
+      Explore VoltShine premium car detailing packages including ceramic
+      coating, graphene coating, Teflon and paint protection film options
+      across Pune and PCMC.
+    </p>
+
+    <Link
+      href="/pune"
+      className="mt-6 inline-flex min-h-12 items-center justify-center rounded-xl bg-yellow-400 px-7 py-3 text-sm font-extrabold text-black transition active:scale-[0.98] hover:bg-yellow-300"
+    >
+      Car Detailing Services in Pune →
+    </Link>
+
+  </div>
+</section>
+
+{/* PUNE INTERNAL LINK */}
+<section className="bg-[#090909] px-4 py-10 sm:px-6 sm:py-14">
+  <div className="mx-auto max-w-5xl text-center">
+
+    <p className="text-[10px] font-bold uppercase tracking-[3px] text-yellow-400 sm:text-xs">
+      VOLTSHINE PUNE
+    </p>
+
+    <h2 className="mt-3 text-2xl font-extrabold text-white sm:text-3xl">
+      UPS & Inverter Solutions in Pune
+    </h2>
+
+    <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-gray-400 sm:text-base">
+      VoltShine provides UPS and inverter solutions for homes, offices and
+      businesses across Pune and PCMC, including installation, battery
+      replacement and AMC support.
+    </p>
+
+    <Link
+      href="/pune"
+      className="mt-6 inline-flex min-h-12 items-center justify-center rounded-xl bg-yellow-400 px-7 py-3 text-sm font-extrabold text-black transition active:scale-[0.98] hover:bg-yellow-300"
+    >
+      Explore VoltShine Pune Services →
+    </Link>
+
+  </div>
+</section>

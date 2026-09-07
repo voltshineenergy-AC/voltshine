@@ -42,28 +42,40 @@ function slugify(value: string) {
 
 export async function generateMetadata({
   params,
-}: Props): Promise<Metadata> {
+}: {
+  params: Promise<{
+    make: string;
+    model: string;
+  }>;
+}): Promise<Metadata> {
   const { make, model } = await params;
 
-  const formattedMake = formatText(make);
-  const formattedModel = formatText(model);
+  const formattedMake = decodeURIComponent(make)
+    .replace(/-/g, " ")
+    .replace(/\b\w/g, (char) => char.toUpperCase());
 
-  const canonicalUrl = `https://voltshine.in/battery/${slugify(
-    formattedMake
-  )}/${slugify(formattedModel)}`;
+  const formattedModel = decodeURIComponent(model)
+    .replace(/-/g, " ")
+    .replace(/\b\w/g, (char) => char.toUpperCase());
+
+  const vehicleName = `${formattedMake} ${formattedModel}`;
+
+  const canonicalUrl = `https://voltshine.in/battery/${make}/${model}`;
 
   return {
-    title: `${formattedMake} ${formattedModel} Battery Replacement in Pune | VoltShine`,
+    title: `${vehicleName} Battery Price & Replacement in Pune`,
 
-    description: `Find the right battery for ${formattedMake} ${formattedModel}. Get genuine car battery replacement, doorstep installation, warranty and old battery exchange across Pune & PCMC.`,
+    description:
+      `Find compatible ${vehicleName} car batteries in Pune. Check battery options, pricing, warranty and doorstep battery replacement from VoltShine.`,
 
     alternates: {
       canonical: canonicalUrl,
     },
 
     openGraph: {
-      title: `${formattedMake} ${formattedModel} Battery Replacement in Pune | VoltShine`,
-      description: `Genuine battery replacement for ${formattedMake} ${formattedModel} with doorstep installation across Pune & PCMC.`,
+      title: `${vehicleName} Battery Price & Replacement in Pune | VoltShine`,
+      description:
+        `Get compatible ${vehicleName} battery options with pricing, warranty and doorstep battery replacement across Pune & PCMC.`,
       url: canonicalUrl,
       type: "website",
     },
@@ -462,6 +474,78 @@ Thank You.`
   make={formattedMake}
   model={formattedModel}
 />
+
+{/* VEHICLE SEO CONTENT */}
+<section className="mt-10 rounded-3xl border border-yellow-400/20 bg-[#151515] p-6 sm:p-8">
+  <p className="text-[10px] font-bold uppercase tracking-[3px] text-yellow-400 sm:text-xs">
+    VOLTSHINE VEHICLE BATTERY SERVICE
+  </p>
+
+  <h2 className="mt-3 text-2xl font-extrabold leading-tight text-white sm:text-3xl">
+    {formattedMake} {formattedModel} Battery Replacement in Pune
+  </h2>
+
+  <p className="mt-4 text-sm leading-6 text-gray-400 sm:text-base sm:leading-7">
+    Looking for a reliable battery for your {formattedMake}{" "}
+    {formattedModel}? VoltShine helps you find compatible car battery
+    options based on your vehicle details and provides professional
+    battery replacement service across Pune and PCMC.
+  </p>
+
+  <p className="mt-4 text-sm leading-6 text-gray-400 sm:text-base sm:leading-7">
+    You can check available battery brands, capacity, pricing, warranty
+    and doorstep installation options for your {formattedMake}{" "}
+    {formattedModel}. Our team can also help confirm battery availability
+    and installation timing.
+  </p>
+
+  <div className="mt-6 grid gap-3 sm:grid-cols-3">
+    <div className="rounded-xl border border-white/10 bg-black/20 p-4">
+      <p className="text-sm font-bold text-white">
+        Compatible Battery
+      </p>
+      <p className="mt-1 text-xs leading-5 text-gray-500">
+        Vehicle-specific battery options
+      </p>
+    </div>
+
+    <div className="rounded-xl border border-white/10 bg-black/20 p-4">
+      <p className="text-sm font-bold text-white">
+        Doorstep Installation
+      </p>
+      <p className="mt-1 text-xs leading-5 text-gray-500">
+        Convenient installation options
+      </p>
+    </div>
+
+    <div className="rounded-xl border border-white/10 bg-black/20 p-4">
+      <p className="text-sm font-bold text-white">
+        Warranty Support
+      </p>
+      <p className="mt-1 text-xs leading-5 text-gray-500">
+        Applicable manufacturer warranty
+      </p>
+    </div>
+  </div>
+
+  <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+
+    <Link
+      href="/battery"
+      className="inline-flex min-h-12 items-center justify-center rounded-xl bg-yellow-400 px-6 py-3 text-sm font-extrabold text-black transition active:scale-[0.98] hover:bg-yellow-300"
+    >
+      Explore All Car Batteries →
+    </Link>
+
+    <Link
+      href="/pune"
+      className="inline-flex min-h-12 items-center justify-center rounded-xl border border-white/15 px-6 py-3 text-sm font-extrabold text-white transition active:scale-[0.98] hover:border-yellow-400 hover:text-yellow-400"
+    >
+      Car Battery Services in Pune →
+    </Link>
+
+  </div>
+</section>
 
 {/* SERVICE AREA */}
 <section className="bg-black px-4 py-10 sm:px-6 sm:py-14">

@@ -1,30 +1,30 @@
 import {
+  CarFront,
+  Zap,
   ShieldCheck,
-  Clock3,
-  BatteryCharging,
-  Award,
+  Users,
 } from "lucide-react";
 
 const features = [
   {
-    icon: BatteryCharging,
-    title: "Genuine Batteries",
-    desc: "100% genuine Amaron, Exide, Livguard & more.",
+    icon: CarFront,
+    title: "Complete Auto Care",
+    desc: "Battery replacement, jumpstart, windshield replacement and premium car detailing under one platform.",
   },
   {
-    icon: Clock3,
-    title: "Fast Doorstep Service",
-    desc: "Battery replacement & jumpstart at your location.",
+    icon: Zap,
+    title: "Energy Solutions",
+    desc: "Reliable UPS, inverter and solar solutions for homes, offices and businesses.",
   },
   {
     icon: ShieldCheck,
-    title: "Warranty Support",
-    desc: "Manufacturer warranty with proper invoice.",
+    title: "Quality & Warranty",
+    desc: "Genuine products, professional installation and applicable warranty support.",
   },
   {
-    icon: Award,
-    title: "Trusted Experts",
-    desc: "Professional technicians with quality workmanship.",
+    icon: Users,
+    title: "Trusted Service",
+    desc: "Professional service and convenient doorstep assistance across Pune & PCMC.",
   },
 ];
 
@@ -47,8 +47,8 @@ export default function WhyVoltshine() {
           </h2>
 
           <p className="mx-auto mt-3 max-w-2xl text-sm leading-5 text-gray-400 sm:text-lg sm:leading-7">
-            Reliable products, professional installation and fast
-            doorstep service across Pune & PCMC.
+            Complete Energy & Auto Care solutions with reliable products,
+            professional service and convenient support across Pune & PCMC.
           </p>
 
         </div>
@@ -106,28 +106,31 @@ export default function WhyVoltshine() {
 
           <div className="border-r border-white/10 px-2 py-4 text-center">
             <p className="text-lg font-extrabold text-yellow-400 sm:text-2xl">
-              100%
+              6+
             </p>
+
             <p className="mt-1 text-[9px] font-semibold uppercase tracking-wide text-gray-500 sm:text-xs">
-              Genuine
+              Services
             </p>
           </div>
 
           <div className="border-r border-white/10 px-2 py-4 text-center">
             <p className="text-lg font-extrabold text-yellow-400 sm:text-2xl">
-              Fast
+              Pune
             </p>
+
             <p className="mt-1 text-[9px] font-semibold uppercase tracking-wide text-gray-500 sm:text-xs">
-              Doorstep
+              & PCMC
             </p>
           </div>
 
           <div className="px-2 py-4 text-center">
             <p className="text-lg font-extrabold text-yellow-400 sm:text-2xl">
-              Pune
+              Trusted
             </p>
+
             <p className="mt-1 text-[9px] font-semibold uppercase tracking-wide text-gray-500 sm:text-xs">
-              & PCMC
+              Service
             </p>
           </div>
 
